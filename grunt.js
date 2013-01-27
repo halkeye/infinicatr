@@ -24,8 +24,8 @@ module.exports = function(grunt) {
           {src: ['www/*.html'], dest: 'www-built/', filter: 'isFile'},
           {src: ['www/manifest.webapp'], dest: 'www-built/', filter: 'isFile'},
           {src: ['www/package.manifest'], dest: 'www-built/', filter: 'isFile'},
-          {src: ['www/css/*'], dest: 'www-built/css/', filter: 'isFile'},
-          {expand: true, cwd: 'www/lib/', src: ['**'], dest: 'dest/lib/'}
+          {src: ['www/css/**'], dest: 'www-built/css/', filter: 'isFile'},
+          {src: ['www/lib/**'], dest: 'www-built/lib/'}
         ]
       }
     },
