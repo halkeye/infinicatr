@@ -8,16 +8,16 @@
     <meta name="viewport" content="width=device-width">
 
     <!-- Place favicon.ico in the root directory -->
-
+    <link rel="stylesheet" type="text/css" href="/shared/style/headers.css">
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
-    <!-- Use this installation button to install locally without going
-         through the marketpace (see app.js) -->
-
-    <!-- Write your application here -->
-    <img src="img/logo.png" alt="InifiCatr" />
+    <section role="region">
+      <header>
+        <h1>InfiniCat</h1>
+      </header>
+    </section>
 
     <div id="catCarousel" class="carousel slide">
         <!-- Carousel items -->
@@ -35,10 +35,13 @@
     <script type="text/javascript"
             src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript"
-            src="js/app-main.js"></script>
-    <script type="text/javascript"
             data-main="js/init.js"
             src="js/lib/require.js"></script>
+
+    <script type="text/javascript"
+            src="js/app-main.js"></script>
+    <!-- Use this installation button to install locally without going
+         through the marketpace (see app.js) -->
     <button id="install-btn">Install</button> 
   </body>
 </html>
