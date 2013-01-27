@@ -57,7 +57,7 @@ jQuery(document).ready(function() {
       if (!pendingMorePhotos) {
         $car.carousel('next');
       } else {
-        alert(config.pending_photos_threshold);
+        alert(config.pending_message);
       }
     }
     else { return; }
@@ -76,7 +76,7 @@ jQuery(document).ready(function() {
     if (!pendingMorePhotos) {
       $car.carousel('next');
     } else {
-      alert(config.pending_photos_threshold);
+      alert(config.pending_message);
     }
     e.preventDefault();
   });
