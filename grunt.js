@@ -20,11 +20,11 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: [ 
-          {src: ['www/*.ico'], dest: 'dist/', filter: 'isFile'},
-          {src: ['www/*.html'], dest: 'dist/', filter: 'isFile'},
-          {src: ['www/manifest.webapp'], dest: 'dist/', filter: 'isFile'},
-          {src: ['www/package.manifest'], dest: 'dist/', filter: 'isFile'},
-          {src: ['www/css/*'], dest: 'dist/css/', filter: 'isFile'},
+          {src: ['www/*.ico'], dest: 'www-built/', filter: 'isFile'},
+          {src: ['www/*.html'], dest: 'www-built/', filter: 'isFile'},
+          {src: ['www/manifest.webapp'], dest: 'www-built/', filter: 'isFile'},
+          {src: ['www/package.manifest'], dest: 'www-built/', filter: 'isFile'},
+          {src: ['www/css/*'], dest: 'www-built/css/', filter: 'isFile'},
           {expand: true, cwd: 'www/lib/', src: ['**'], dest: 'dest/lib/'}
         ]
       }
@@ -32,13 +32,13 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: ['<banner:meta.banner>', 'www/js/*.js'],
-        dest: 'dist/js/app-main.min.js'
+        dest: 'www-built/js/app-main.min.js'
       }
     },
     min: {
       dist: {
         src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
-        dest: 'dist/js/app-main.min.js'
+        dest: 'www-built/js/app-main.min.js'
       }
     },
     watch: {
@@ -63,6 +63,13 @@ module.exports = function(grunt) {
         jQuery: true
       }
     },
+    compress: {
+      zip: {
+        files: {
+          "package.zip": [ "www-built/**"] 
+        }
+      }
+    },
     manifest: {
       generate: {
         options: {
@@ -79,7 +86,7 @@ module.exports = function(grunt) {
             "js/*.js",
             "css/*.css"
         ],
-        dest: "../dist/manifest.appcache"
+        dest: "../www-built/manifest.appcache"
       }
     },
     uglify: {}
@@ -87,8 +94,9 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-manifest');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-compress');
 
-  grunt.registerTask('build', 'concat min copy manifest');
+  grunt.registerTask('build', 'concat min copy manifest compress');
 
   // Default task.
   grunt.registerTask('default', 'lint qunit build');
