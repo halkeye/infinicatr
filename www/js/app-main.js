@@ -12,16 +12,20 @@ jQuery(document).ready(function() {
   config.pending_photos_threshold = Math.floor(config.page_size*1/3);
   config.max_photos = config.page_size * 3;
 
-  var page = 0;
+  var page = 1;
   var pendingMorePhotos = 0;
   var getMorePhotos = function(callback) {
     if (pendingMorePhotos) return;
+    /* Fetching photos! PLEASE WAIT! */
     $pending.show();
     pendingMorePhotos = 1;
     $.getJSON('http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + flickr.key + '&tags=cats&format=json&per_page='+config.page_size+'&jsoncallback=?&page='+page,function(data) {
       pendingMorePhotos = 0;
+      /* Done fetching images, so hide progress */
       $pending.hide();
-      page++;
+      /* Make sure we wrap around and start again on page 1 (1 based) */
+      page = (data.photos.page % data.photos.pages) + 1;
+      /* Add photos to the page */
       jQuery.each(data.photos.photo, function(idx,elm) {
         // http://www.flickr.com/services/api/misc.urls.html
         var url = "http://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_z.jpg"
