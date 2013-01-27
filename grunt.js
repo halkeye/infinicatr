@@ -17,16 +17,28 @@ module.exports = function(grunt) {
     qunit: {
       files: ['test/**/*.html']
     },
+    copy: {
+      main: {
+        files: [ 
+          {src: ['www/*.ico'], dest: 'dist/', filter: 'isFile'},
+          {src: ['www/*.html'], dest: 'dist/', filter: 'isFile'},
+          {src: ['www/manifest.webapp'], dest: 'dist/', filter: 'isFile'},
+          {src: ['www/package.manifest'], dest: 'dist/', filter: 'isFile'},
+          {src: ['www/css/*'], dest: 'dist/css/', filter: 'isFile'},
+          {expand: true, cwd: 'www/lib/', src: ['**'], dest: 'dest/lib/'}
+        ]
+      }
+    },
     concat: {
       dist: {
-        src: ['<banner:meta.banner>', 'www/lib/*.js', 'www/js/*.js'],
-        dest: 'dist/js/<%= pkg.name %>.js'
+        src: ['<banner:meta.banner>', 'www/js/*.js'],
+        dest: 'dist/js/app-main.min.js'
       }
     },
     min: {
       dist: {
         src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
-        dest: 'dist/<%= pkg.name %>.min.js'
+        dest: 'dist/js/app-main.min.js'
       }
     },
     watch: {
@@ -74,8 +86,11 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-manifest');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+
+  grunt.registerTask('build', 'concat min copy manifest');
 
   // Default task.
-  grunt.registerTask('default', 'lint qunit concat min');
+  grunt.registerTask('default', 'lint qunit build');
 
 };

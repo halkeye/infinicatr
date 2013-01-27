@@ -9,7 +9,10 @@
   "dependencies": {
     "volo-ghdeploy": "0.0.3",
     "connect": "~2.4.4",
-    "less-middleware": "~0.1.5",
-    "grunt-contrib-manifest": "~0.2.0"
+    "less-middleware": "~0.1.5"
+  },
+  "devDependencies": {
+    "grunt-contrib-manifest": "~0.2.0",
+    "grunt-contrib-copy": "~0.3.2"
   }
 }
