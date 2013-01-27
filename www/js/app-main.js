@@ -2,6 +2,7 @@
 jQuery(document).ready(function() {
   "use strict";
   var $car = jQuery('#catCarousel .carousel-inner');
+  var $pending = jQuery('#loading_flickr_indicator').hide();
   var flickr = {
     key:'850775ffc1d6d95478d78bee0fdf4971'
   };
@@ -11,9 +12,11 @@ jQuery(document).ready(function() {
   var pendingMorePhotos = 0;
   var getMorePhotos = function(callback) {
     if (pendingMorePhotos) return;
+    $pending.show();
     pendingMorePhotos = 1;
     $.getJSON('http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + flickr.key + '&tags=cats&format=json&per_page='+page_size+'&jsoncallback=?&page='+page,function(data) {
       pendingMorePhotos = 0;
+      $pending.hide();
       page++;
       jQuery.each(data.photos.photo, function(idx,elm) {
         // http://www.flickr.com/services/api/misc.urls.html
