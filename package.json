@@ -1,9 +1,15 @@
 {
   "name": "infinicatr",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/halkeye/infinicatr.git"
+  },
+  "author": "Gavin Mogan <gavin@kodekoan.com>",
   "dependencies": {
     "volo-ghdeploy": "0.0.3",
     "connect": "~2.4.4",
-    "less-middleware": "~0.1.5"
+    "less-middleware": "~0.1.5",
+    "grunt-contrib-manifest": "~0.2.0"
   }
 }
