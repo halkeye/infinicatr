@@ -1,16 +1,24 @@
 {
+  "manifest_version": 2,
   "version": "0.1",
-  "name": "InifiCatr",
-  "description": "SO MANY CATS",
+  "name": "InfiniCatr",
+  "description": "Endless Supply of cat pictures (as provided by flickr)",
   "launch_path": "/",
   "icons": {
-    "16": "/img/icons/mortar-16.png",
-    "48": "/img/icons/mortar-48.png",
-    "128": "/img/icons/mortar-128.png"
+    "16": "/img/icons/icon-16.png",
+    "48": "/img/icons/icon-48.png",
+    "128": "/img/icons/icon-128.png"
   },
+  "app": { 
+      "launch": {
+          "local_path":"index.html"
+      }
+  },
+  "permissions": [
+  ],
   "developer": {
     "name": "Gavin Mogan",
-    "url": "http://moocow.halkeye.net:8008"
+    "url": "http://www.kodekoan.com"
   },
   "installs_allowed_from": ["*"],
   "appcache_path": "/cache.manifest",
