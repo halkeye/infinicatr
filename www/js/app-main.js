@@ -10,6 +10,7 @@ jQuery(document).ready(function() {
   config.pending_message = "Please wait. Fetching more content";
   config.page_size = 10;
   config.pending_photos_threshold = Math.floor(config.page_size*1/3);
+  config.max_photos = config.page_size * 3;
 
   var page = 0;
   var pendingMorePhotos = 0;
@@ -35,6 +36,12 @@ jQuery(document).ready(function() {
       if ($car.find('.active').length === 0)
       {
           $car.children().eq(0).addClass('active');
+      }
+      if ($car.children().length > config.max_photos) {
+          /* Anything above the max we want on a page we should remove */
+          var removalCount = $car.children().length - config.max_photos;
+          console.log("Removing ", removalCount, " Photos");
+          $car.children().filter(':not(.active):lt('+removalCount+')').remove();
       }
       if(callback)
         callback();
