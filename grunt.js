@@ -35,6 +35,9 @@ module.exports = function(grunt) {
         dest: 'www-built/js/app-main.min.js'
       }
     },
+    clean: {
+        www_built: "www-built/"
+    },
     min: {
       dist: {
         src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
@@ -95,10 +98,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-manifest');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-compress');
+  grunt.loadNpmTasks('grunt-clean');
 
   grunt.registerTask('build', 'concat min copy manifest compress');
 
   // Default task.
-  grunt.registerTask('default', 'lint qunit build');
+  grunt.registerTask('default', 'lint qunit clean build');
 
 };
