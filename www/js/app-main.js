@@ -6,15 +6,18 @@ jQuery(document).ready(function() {
   var flickr = {
     key:'850775ffc1d6d95478d78bee0fdf4971'
   };
-  var page = 0;
-  var page_size = 5;
+  var config = {};
+  config.pending_message = "Please wait. Fetching more content";
+  config.page_size = 10;
+  config.pending_photos_threshold = Math.floor(config.page_size*1/3);
 
+  var page = 0;
   var pendingMorePhotos = 0;
   var getMorePhotos = function(callback) {
     if (pendingMorePhotos) return;
     $pending.show();
     pendingMorePhotos = 1;
-    $.getJSON('http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + flickr.key + '&tags=cats&format=json&per_page='+page_size+'&jsoncallback=?&page='+page,function(data) {
+    $.getJSON('http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + flickr.key + '&tags=cats&format=json&per_page='+config.page_size+'&jsoncallback=?&page='+page,function(data) {
       pendingMorePhotos = 0;
       $pending.hide();
       page++;
@@ -40,7 +43,11 @@ jQuery(document).ready(function() {
       $car.carousel('prev');
     }
     else if (direction == "right") {
-      $car.carousel('next');
+      if (!pendingMorePhotos) {
+        $car.carousel('next');
+      } else {
+        alert(config.pending_photos_threshold);
+      }
     }
     else { return; }
   };
@@ -58,7 +65,7 @@ jQuery(document).ready(function() {
     if (!pendingMorePhotos) {
       $car.carousel('next');
     } else {
-      alert("Please wait fetching more content");
+      alert(config.pending_photos_threshold);
     }
     e.preventDefault();
   });
@@ -68,7 +75,7 @@ jQuery(document).ready(function() {
     var $this = jQuery(this);
     var $active = $this.find('.item.active');
     var current = $car.children().index($active);
-    if (current > $car.children().length - 3 /* threshold */) {
+    if (current > $car.children().length - config.pending_photos_threshold /* threshold */) {
       getMorePhotos();
     }
   });
