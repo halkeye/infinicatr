@@ -31,12 +31,16 @@ jQuery(document).ready(function() {
         var $div = jQuery('<div>').attr('id', 'flickr_photo_' +elm.id).addClass('item').appendTo($car);
         var $img = jQuery('<img>').attr('src', url ).appendTo($div);
       });
+      /* None are active on screen yet */
+      if ($car.find('.active').length === 0)
+      {
+          $car.children().eq(0).addClass('active');
+      }
       if(callback)
         callback();
     });
   };
   getMorePhotos(function() {
-    $car.children().eq(0).addClass('active');
   });
   var swipeEventFunction = function(event, direction, distance, fingerCount) {
     if (direction == "left") {
