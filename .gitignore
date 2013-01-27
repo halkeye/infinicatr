@@ -43,5 +43,6 @@ build/config/buildinfo.properties
 
 www-built
 www-ghdeploy
+package.zip
 
 node_modules
