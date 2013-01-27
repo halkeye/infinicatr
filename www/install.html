@@ -1,0 +1,15 @@
+<html>
+  <body>
+    <p>Packaged app installation page</p>
+    <script>
+      var manifestUrl = '/package.manifest';
+      var req = navigator.mozApps.installPackage(manifestUrl);
+      req.onsuccess = function() {
+        alert(this.result.origin);
+      };
+      req.onerror = function() {
+        alert(this.error.name);
+      };
+    </script>
+  </body>
+</html>
