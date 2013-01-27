@@ -67,8 +67,7 @@ module.exports = function(grunt) {
             "js/*.js",
             "css/*.css"
         ],
-        dest: __dirname + "/dist/manifest.appcache",
-        dest2: "dist/manifest.appcache"
+        dest: "../dist/manifest.appcache"
       }
     },
     uglify: {}
