@@ -44,7 +44,6 @@ jQuery(document).ready(function() {
       if ($car.children().length > config.max_photos) {
           /* Anything above the max we want on a page we should remove */
           var removalCount = $car.children().length - config.max_photos;
-          console.log("Removing ", removalCount, " Photos");
           $car.children().filter(':not(.active):lt('+removalCount+')').remove();
       }
       if(callback)
