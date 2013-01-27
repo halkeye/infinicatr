@@ -15,7 +15,7 @@ jQuery(document).ready(function() {
   var page = 1;
   var pendingMorePhotos = 0;
   var getMorePhotos = function(callback) {
-    if (pendingMorePhotos) return;
+    if (pendingMorePhotos) { return; }
     /* Fetching photos! PLEASE WAIT! */
     $pending.show();
     pendingMorePhotos = 1;
@@ -46,17 +46,16 @@ jQuery(document).ready(function() {
           var removalCount = $car.children().length - config.max_photos;
           $car.children().filter(':not(.active):lt('+removalCount+')').remove();
       }
-      if(callback)
-        callback();
+      if(callback) { callback(); }
     });
   };
   getMorePhotos(function() {
   });
   var swipeEventFunction = function(event, direction, distance, fingerCount) {
-    if (direction == "left") {
+    if (direction === "left") {
       $car.carousel('prev');
     }
-    else if (direction == "right") {
+    else if (direction === "right") {
       if (!pendingMorePhotos) {
         $car.carousel('next');
       } else {
