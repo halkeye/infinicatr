@@ -1,0 +1,18 @@
+{
+  "version": "0.1",
+  "name": "InifiCatr",
+  "description": "SO MANY CATS",
+  "launch_path": "/",
+  "icons": {
+    "16": "/img/icons/mortar-16.png",
+    "48": "/img/icons/mortar-48.png",
+    "128": "/img/icons/mortar-128.png"
+  },
+  "developer": {
+    "name": "Gavin Mogan",
+    "url": "http://moocow.halkeye.net:8008"
+  },
+  "installs_allowed_from": ["*"],
+  "appcache_path": "/cache.manifest",
+  "default_locale": "en"
+}
