@@ -52,7 +52,11 @@ jQuery(document).ready(function() {
     e.preventDefault();
   });
   jQuery('#catCarousel-next').bind('click', function(e) {
-    $car.carousel('next');
+    if (!pendingMorePhotos) {
+      $car.carousel('next');
+    } else {
+      alert("Please wait fetching more content");
+    }
     e.preventDefault();
   });
 
