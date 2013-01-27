@@ -25,6 +25,7 @@ module.exports = function(grunt) {
           {src: ['www/manifest.webapp'], dest: 'www-built/', filter: 'isFile'},
           {src: ['www/package.manifest'], dest: 'www-built/', filter: 'isFile'},
           {src: ['www/css/**'], dest: 'www-built/css/', filter: 'isFile'},
+          {src: ['www/img/**'], dest: 'www-built/img/'},
           {src: ['www/lib/**'], dest: 'www-built/lib/'}
         ]
       }
@@ -77,14 +78,13 @@ module.exports = function(grunt) {
       generate: {
         options: {
           basePath: "www",
-          network: ["http://*", "https://*"],
-          fallback: ["/ /offline.html"],
-          exclude: ["js/jquery.min.js"],
+          network: ["*", "http://*", "https://*"],
           preferOnline: true,
           timestamp: true
         },
         src: [
             "*.html",
+            "img/icons/icon-*.png",
             "lib/*.min.js",
             "js/*.js",
             "css/*.css"
@@ -100,9 +100,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-clean');
 
-  grunt.registerTask('build', 'concat min copy manifest compress');
+  grunt.registerTask('build', 'concat min copy manifest');
 
   // Default task.
-  grunt.registerTask('default', 'lint qunit clean build');
+  grunt.registerTask('default', 'lint qunit clean build compress');
 
 };
