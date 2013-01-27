@@ -51,8 +51,30 @@ module.exports = function(grunt) {
         jQuery: true
       }
     },
+    manifest: {
+      generate: {
+        options: {
+          basePath: "www",
+          network: ["http://*", "https://*"],
+          fallback: ["/ /offline.html"],
+          exclude: ["js/jquery.min.js"],
+          preferOnline: true,
+          timestamp: true
+        },
+        src: [
+            "*.html",
+            "lib/*.min.js",
+            "js/*.js",
+            "css/*.css"
+        ],
+        dest: __dirname + "/dist/manifest.appcache",
+        dest2: "dist/manifest.appcache"
+      }
+    },
     uglify: {}
   });
+
+  grunt.loadNpmTasks('grunt-contrib-manifest');
 
   // Default task.
   grunt.registerTask('default', 'lint qunit concat min');
