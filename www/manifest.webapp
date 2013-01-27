@@ -14,8 +14,8 @@
           "local_path":"index.html"
       }
   },
-  "permissions": [
-  ],
+  "permissions": {
+  },
   "developer": {
     "name": "Gavin Mogan",
     "url": "http://www.kodekoan.com"
