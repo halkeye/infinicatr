@@ -1,21 +1,13 @@
-# A Blank Template for Open Web Apps
+# InfiniCatr Web App
 
-The is a minimal template that has a little HTML, CSS, and js to help
-you start writing an Open Web App.
+Open Web App that shows a "neverending" stream of cat pictures. 
 
-This is part of the [mortar](https://github.com/mozilla/mortar/)
-template collection for building Open Web Apps.
+Originally used the [mortar](https://github.com/mozilla/mortar/) templates
 
 # Usage
 
-There are a few ways to get this template:
+Start volo serve now to get content serving on localhost
 
-* git clone git://github.com/mozilla/mortar-app-stub.git myapp
-* volo create myapp mozilla/mortar-app-stub
-
-If you have node installed, you can run a development server with volo:
-
-* cd myapp
 * volo serve
 
 View the app at http://localhost:8008/.
