@@ -12,7 +12,7 @@
     "less-middleware": "~0.1.5"
   },
   "devDependencies": {
-    "grunt-contrib-manifest": "~0.2.0",
+    "grunt-contrib-manifest": "git://github.com/halkeye/grunt-contrib-manifest.git#fix_set_base",
     "grunt-contrib-copy": "~0.3.2",
     "grunt-contrib-compress": "~0.3.3",
     "grunt-clean": "~0.3.1",
