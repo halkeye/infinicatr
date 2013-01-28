@@ -93,6 +93,15 @@ module.exports = function(grunt) {
         dest: "../www-built/manifest.appcache"
       }
     },
+    rsync: {
+        "deploy-live": {
+            src: "www-built/",
+            dest: "/home/apache/vhosts/kodekoan.com/apps/infinicatr/",
+            host: "rib",
+            recursive: true,
+            syncDest: true
+        }
+    },
     uglify: {}
   });
 
@@ -100,6 +109,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-clean');
+  grunt.loadNpmTasks('grunt-rsync');
 
   grunt.registerTask('build', 'concat min copy manifest');
 
