@@ -23,7 +23,6 @@ module.exports = function(grunt) {
           {src: ['www/*.ico'], dest: 'www-built/', filter: 'isFile'},
           {src: ['www/*.html'], dest: 'www-built/', filter: 'isFile'},
           {src: ['www/manifest.webapp'], dest: 'www-built/', filter: 'isFile'},
-          {src: ['www/package.manifest'], dest: 'www-built/', filter: 'isFile'},
           {src: ['www/css/**'], dest: 'www-built/css/', filter: 'isFile'},
           {src: ['www/img/**'], dest: 'www-built/img/'},
           {src: ['www/lib/**'], dest: 'www-built/lib/'}
