@@ -88,7 +88,8 @@ module.exports = function(grunt) {
             "img/icons/icon-*.png",
             "lib/*.min.js",
             "js/*.js",
-            "css/*.css"
+            "css/*.css",
+            "shared/**"
         ],
         dest: "../www-built/manifest.appcache"
       }
@@ -112,6 +113,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-rsync');
 
   grunt.registerTask('build', 'concat min copy manifest');
+  grunt.registerTask('deploy', 'rsync');
 
   // Default task.
   grunt.registerTask('default', 'lint qunit clean build');
