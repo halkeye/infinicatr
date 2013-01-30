@@ -7,10 +7,6 @@ module.exports = function(grunt) {
     lint: {
       files: ['grunt.js', 'www/js/**/*.js', 'test/**/*.js']
     },
-    cssUrls: {
-      /* src *(required)*: The file location of the css with the @import rules. */
-      src:  "www/css/style.css"
-    },
     cssmin: {
       main: {
         src: 'www-built/css/app.css',
@@ -110,19 +106,6 @@ module.exports = function(grunt) {
             ]
         }
     },
-    less: {
-      main: {
-        options: {
-          paths: [ "www", "www-built", '../www' ],
-          flatten: true,
-          dumpLineNumbers: true,
-          strictImports: true
-        },
-        files: {
-            'www-built/css/app.less' : 'www-built/css/app.css'
-        }
-      }
-    },
     'useminPrepare': {
         html: 'www/index.html'
     },
@@ -142,14 +125,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-rsync');
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-css');
-  grunt.loadNpmTasks('grunt-css-urls');
   grunt.loadNpmTasks('grunt-usemin');
-  grunt.loadNpmTasks('grunt-contrib-less');
 
-  grunt.registerTask('build', 'useminPrepare copy concat min cssmin usemin replace manifest');
+  grunt.registerTask('build', 'useminPrepare copy concat min cssmin usemin manifest');
   grunt.registerTask('deploy', 'rsync');
 
   // Default task.
-  grunt.registerTask('default', 'lint clean build');
+  grunt.registerTask('default', 'lint clean build replace');
 
 };
