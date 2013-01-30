@@ -1,9 +1,16 @@
-/*global module:false*/
+/*jshint node:true */
+var path = require('path');
 module.exports = function(grunt) {
+  "use strict";
 
   // Project configuration.
   grunt.initConfig({
     pkg: '<json:package.json>',
+
+    server: {
+      port: 8008,
+      base: './app'
+    },
     lint: {
       files: ['grunt.js', 'app/js/**/*.js', 'test/**/*.js']
     },
@@ -43,7 +50,7 @@ module.exports = function(grunt) {
     },
     watch: {
       files: '<config:lint.files>',
-      tasks: 'lint qunit'
+      tasks: 'lint nodeunit'
     },
     jshint: {
       options: {
@@ -126,6 +133,36 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-css');
   grunt.loadNpmTasks('grunt-usemin');
+
+  grunt.registerTask('serve', 'Serve dev directory', function() {
+    var connect;
+    var done = this.async();
+
+    try {
+      connect = require('connect');
+    }
+    catch(e) {
+      console.log('To use the `serve` command, you must ' +
+        'install the connect module:\n\n' + 
+        'npm install connect');
+      return;
+    }
+
+    var port = 8008;
+    var base = path.join(process.cwd(), 'app');
+    var middleware = [
+      connect['static'](base),
+      connect.directory(base)
+    ];
+
+    connect.logger.format("OpenWebApp",
+        "[D] server :method :url :status " +
+        ":res[content-length] - :response-time ms");
+    middleware.unshift(connect.logger("OpenWebApp"));
+
+    console.log("starting web server on port " + port);
+    connect.apply(null, middleware).listen(port).on('close', done);
+  });
 
   grunt.registerTask('build', 'useminPrepare copy concat min cssmin usemin manifest');
   grunt.registerTask('deploy', 'rsync');
