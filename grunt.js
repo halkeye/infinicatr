@@ -109,6 +109,6 @@ module.exports = function(grunt) {
   grunt.registerTask('deploy', 'rsync');
 
   // Default task.
-  grunt.registerTask('default', 'lint qunit clean build');
+  grunt.registerTask('default', 'lint clean build');
 
 };
