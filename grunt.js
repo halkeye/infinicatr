@@ -5,7 +5,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: '<json:package.json>',
     lint: {
-      files: ['grunt.js', 'www/js/**/*.js', 'test/**/*.js']
+      files: ['grunt.js', 'app/js/**/*.js', 'test/**/*.js']
     },
     cssmin: {
       main: {
@@ -16,9 +16,9 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: [
-          {src: ['www/*.ico', 'www/index.html', 'www/manifest.webapp'], dest: 'www-built/'},
+          {src: ['app/*.ico', 'app/index.html', 'app/manifest.webapp'], dest: 'www-built/'},
           //{src: ['../gaia/shared/style*/**/*.png'], dest: 'www-built/css/'},
-          {src: ['www/img/**'], dest: 'www-built/img/'}
+          {src: ['app/img/**'], dest: 'www-built/img/'}
         ]
       },
       gaia_style: {
@@ -107,13 +107,13 @@ module.exports = function(grunt) {
         }
     },
     'useminPrepare': {
-        html: 'www/index.html'
+        html: 'app/index.html'
     },
     usemin: {
         html: ['www-built/index.html'],
         css: ['www-built/css/app.css'],
         options: {
-            dirs: ['www', 'www-built', '../gaia/']
+            dirs: ['app', 'www-built', '../gaia/']
         }
     },
     uglify: {}
