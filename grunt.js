@@ -76,10 +76,10 @@ module.exports = function(grunt) {
             dest: 'www-built/index.html',
             replacements: [
                 {
-                    from: '<html',
+                    from: '<html.*>',
                     to: function(matchedWord) {
                         if (matchedWord.match(/manifest="manifest.appcache"/)) { return matchedWord; }
-                        return '<html manifest="manifest.appcache"';
+                        return matchedWord.replace('<html', '<html manifest="manifest.appcache"');
                     }
                 }
             ]
