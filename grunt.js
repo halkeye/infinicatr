@@ -19,15 +19,11 @@ module.exports = function(grunt) {
     },
     copy: {
       main: {
-        files: [ 
+        files: [
           {src: ['www/*.ico'], dest: 'www-built/', filter: 'isFile'},
-          {src: ['www/*.html'], dest: 'www-built/', filter: 'isFile'},
+          {src: ['www/index.html'], dest: 'www-built/', filter: 'isFile'},
           {src: ['www/manifest.webapp'], dest: 'www-built/', filter: 'isFile'},
-          {src: ['www/css/**'], dest: 'www-built/css/', filter: 'isFile'},
-          {src: ['www/img/**'], dest: 'www-built/img/'},
-          {src: ['www/lib/**'], dest: 'www-built/lib/'},
-          {src: ['../gaia/shared/style/**'], dest: 'www-built/shared/style/'},
-          {src: ['../gaia/shared/style_unstable/**'], dest: 'www-built/shared/style_unstable/'}
+          {src: ['www/img/**'], dest: 'www-built/img/'}
         ]
       }
     },
@@ -119,7 +115,14 @@ module.exports = function(grunt) {
         }
     },
     'useminPrepare': {
-        html: 'dist/index.html'
+        html: 'www-built/index.html'
+    },
+    usemin: {
+        html: ['www-built/index.html'],
+        css: ['www-built/app.css'],
+        options: {
+            dirs: ['www', 'www-built']
+        }
     },
     uglify: {}
   });
@@ -132,7 +135,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-usemin');
 
-  grunt.registerTask('build', 'concat min copy manifest replace usemin');
+  grunt.registerTask('build', 'concat min copy manifest usemin replace');
   grunt.registerTask('deploy', 'rsync');
 
   // Default task.
