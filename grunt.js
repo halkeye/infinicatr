@@ -50,7 +50,7 @@ module.exports = function(grunt) {
     },
     watch: {
       files: '<config:lint.files>',
-      tasks: 'lint nodeunit'
+      tasks: 'lint'
     },
     jshint: {
       options: {
@@ -123,7 +123,11 @@ module.exports = function(grunt) {
             dirs: ['app', 'www-built', '../gaia/']
         }
     },
-    uglify: {}
+    uglify: {
+      mangle: {toplevel: true},
+      squeeze: {dead_code: false},
+      codegen: {quote_keys: true}
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-manifest');
