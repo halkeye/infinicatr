@@ -4,18 +4,8 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: '<json:package.json>',
-    meta: {
-      banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-        '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-        '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
-        '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-        ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
-    },
     lint: {
       files: ['grunt.js', 'www/js/**/*.js', 'test/**/*.js']
-    },
-    qunit: {
-      files: ['test/**/*.html']
     },
     copy: {
       main: {
@@ -27,20 +17,8 @@ module.exports = function(grunt) {
         ]
       }
     },
-    concat: {
-      dist: {
-        src: ['<banner:meta.banner>', 'www/js/*.js'],
-        dest: 'www-built/js/app-main.min.js'
-      }
-    },
     clean: {
         www_built: "www-built/"
-    },
-    min: {
-      dist: {
-        src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
-        dest: 'www-built/js/app-main.min.js'
-      }
     },
     watch: {
       files: '<config:lint.files>',
@@ -62,13 +40,6 @@ module.exports = function(grunt) {
       },
       globals: {
         jQuery: true
-      }
-    },
-    compress: {
-      zip: {
-        files: {
-          "package.zip": [ "www-built/**"] 
-        }
       }
     },
     manifest: {
@@ -129,13 +100,12 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-manifest');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-clean');
   grunt.loadNpmTasks('grunt-rsync');
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-usemin');
 
-  grunt.registerTask('build', 'concat min copy manifest usemin replace');
+  grunt.registerTask('build', 'copy manifest usemin replace');
   grunt.registerTask('deploy', 'rsync');
 
   // Default task.
