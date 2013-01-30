@@ -103,6 +103,24 @@ module.exports = function(grunt) {
             syncDest: true
         }
     },
+    replace: {
+        appcache: {
+            src: [ 'www-built/index.html' ],
+            dest: 'www-built/index.html',
+            replacements: [
+                {
+                    from: '<html',
+                    to: function(matchedWord) {
+                        if (matchedWord.match(/manifest="manifest.appcache"/)) { return matchedWord; }
+                        return '<html manifest="manifest.appcache"';
+                    }
+                }
+            ]
+        }
+    },
+    'useminPrepare': {
+        html: 'dist/index.html'
+    },
     uglify: {}
   });
 
@@ -111,8 +129,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-clean');
   grunt.loadNpmTasks('grunt-rsync');
+  grunt.loadNpmTasks('grunt-text-replace');
+  grunt.loadNpmTasks('grunt-usemin');
 
-  grunt.registerTask('build', 'concat min copy manifest');
+  grunt.registerTask('build', 'concat min copy manifest replace usemin');
   grunt.registerTask('deploy', 'rsync');
 
   // Default task.

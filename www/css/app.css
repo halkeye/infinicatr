@@ -5,5 +5,12 @@
 /* Styles for the installation button */
 @import "install-button.css";
 
+/* Gaia Theme */
+@import "../shared/style/headers.css";
+@import "../shared/style_unstable/progress_activity.css";
+
+/* Bootstrap */
+@import "../lib/bootstrap/css/bootstrap.min.css";
+
 /* Your styles here */
 
