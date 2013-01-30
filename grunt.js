@@ -7,12 +7,38 @@ module.exports = function(grunt) {
     lint: {
       files: ['grunt.js', 'www/js/**/*.js', 'test/**/*.js']
     },
+    cssUrls: {
+      /* src *(required)*: The file location of the css with the @import rules. */
+      src:  "www/css/style.css"
+    },
+    cssmin: {
+      main: {
+        src: 'www-built/css/app.css',
+        dest: 'www-built/css/app.css'
+      }
+    },
     copy: {
       main: {
         files: [
           {src: ['www/*.ico', 'www/index.html', 'www/manifest.webapp'], dest: 'www-built/'},
-          {src: ['../gaia/shared/style*/**/*.png'], dest: 'www-built/shared/'},
+          //{src: ['../gaia/shared/style*/**/*.png'], dest: 'www-built/css/'},
           {src: ['www/img/**'], dest: 'www-built/img/'}
+        ]
+      },
+      gaia_style: {
+        options: {
+            basePath: '../gaia/shared/style'
+        },
+        files: [
+          {src: ['../gaia/shared/style/**/*.png'], dest: 'www-built/css/'}
+        ]
+      },
+      gaia_style_unstable: {
+        options: {
+            basePath: '../gaia/shared/style_unstable'
+        },
+        files: [
+          {src: ['../gaia/shared/style_unstable/**/*.png'], dest: 'www-built/css/'}
         ]
       }
     },
@@ -84,12 +110,25 @@ module.exports = function(grunt) {
             ]
         }
     },
+    less: {
+      main: {
+        options: {
+          paths: [ "www", "www-built", '../www' ],
+          flatten: true,
+          dumpLineNumbers: true,
+          strictImports: true
+        },
+        files: {
+            'www-built/css/app.less' : 'www-built/css/app.css'
+        }
+      }
+    },
     'useminPrepare': {
-        html: 'www-built/index.html'
+        html: 'www/index.html'
     },
     usemin: {
         html: ['www-built/index.html'],
-        css: ['www-built/app.css'],
+        css: ['www-built/css/app.css'],
         options: {
             dirs: ['www', 'www-built', '../gaia/']
         }
@@ -102,9 +141,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-clean');
   grunt.loadNpmTasks('grunt-rsync');
   grunt.loadNpmTasks('grunt-text-replace');
+  grunt.loadNpmTasks('grunt-css');
+  grunt.loadNpmTasks('grunt-css-urls');
   grunt.loadNpmTasks('grunt-usemin');
+  grunt.loadNpmTasks('grunt-contrib-less');
 
-  grunt.registerTask('build', 'copy usemin replace manifest');
+  grunt.registerTask('build', 'useminPrepare copy concat min cssmin usemin replace manifest');
   grunt.registerTask('deploy', 'rsync');
 
   // Default task.
