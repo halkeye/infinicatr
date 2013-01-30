@@ -10,9 +10,8 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: [
-          {src: ['www/*.ico'], dest: 'www-built/', filter: 'isFile'},
-          {src: ['www/index.html'], dest: 'www-built/', filter: 'isFile'},
-          {src: ['www/manifest.webapp'], dest: 'www-built/', filter: 'isFile'},
+          {src: ['www/*.ico', 'www/index.html', 'www/manifest.webapp'], dest: 'www-built/'},
+          {src: ['../gaia/shared/style*/**/*.png'], dest: 'www-built/shared/'},
           {src: ['www/img/**'], dest: 'www-built/img/'}
         ]
       }
@@ -45,7 +44,7 @@ module.exports = function(grunt) {
     manifest: {
       generate: {
         options: {
-          basePath: "www",
+          basePath: "www-built",
           network: ["*", "http://*", "https://*"],
           preferOnline: true,
           timestamp: true
@@ -53,9 +52,9 @@ module.exports = function(grunt) {
         src: [
             "*.html",
             "img/icons/icon-*.png",
-            "lib/*.min.js",
-            "js/*.js",
-            "css/*.css",
+            "lib/**/*",
+            "js/**/*",
+            "css/**/*.css",
             "shared/**"
         ],
         dest: "../www-built/manifest.appcache"
@@ -92,7 +91,7 @@ module.exports = function(grunt) {
         html: ['www-built/index.html'],
         css: ['www-built/app.css'],
         options: {
-            dirs: ['www', 'www-built']
+            dirs: ['www', 'www-built', '../gaia/']
         }
     },
     uglify: {}
@@ -105,7 +104,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-usemin');
 
-  grunt.registerTask('build', 'copy manifest usemin replace');
+  grunt.registerTask('build', 'copy usemin replace manifest');
   grunt.registerTask('deploy', 'rsync');
 
   // Default task.
