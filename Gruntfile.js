@@ -55,17 +55,18 @@ module.exports = function(grunt) {
     },
     replace: {
       appcache: {
-        src: [ '<%= outdir %>/index.html' ],
-        dest: '<%= outdir %>/index.html',
-        replacements: [
-          {
-            from: '<html.*>',
-            to: function(matchedWord) {
-              if (matchedWord.match(/manifest="manifest.appcache"/)) { return matchedWord; }
-              return matchedWord.replace('<html', '<html manifest="manifest.appcache"');
+        files: [{src:['<%= outdir %>/index.html'], dest: '<%= outdir %>/index.html'}],
+        options: {
+          patterns: [
+            {
+              match: /<html.*>/,
+              replacement: function(matchedWord) {
+                if (matchedWord.match(/manifest="manifest.appcache"/)) { return matchedWord; }
+                return matchedWord.replace('<html', '<html manifest="manifest.appcache"');
+              }
             }
-          }
-        ]
+          ]
+        }
       }
     },
     'useminPrepare': {
@@ -91,6 +92,12 @@ module.exports = function(grunt) {
           livereload: true
         }
       }
+    },
+    'gh-pages': {
+      options: {
+        base: '<%= outdir %>',
+      },
+      src: ['**']
     }
   });
 
@@ -102,7 +109,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-manifest');
-  grunt.loadNpmTasks('grunt-text-replace');
+  grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-rsync');
   grunt.loadNpmTasks('grunt-usemin');
   grunt.loadNpmTasks('grunt-filerev');
@@ -112,6 +119,7 @@ module.exports = function(grunt) {
   grunt.registerTask('serve', ['connect:server:keepalive']);
   grunt.registerTask('build', ['useminPrepare','copy','concat','cssmin','uglify','usemin']);
   grunt.registerTask('deploy', ['rsync']);
+  grunt.registerTask('dist', ['build','replace','gh-pages']);
 
   // Default task.
   grunt.registerTask('default', ['jshint','clean','build','replace']);
