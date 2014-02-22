@@ -1,0 +1,22 @@
+{
+  "name": "firefox-install",
+  "version": "0.1.0",
+  "description": "Install ribbon for Firefox apps in the style of Github ribbons",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/iceddev/firefox-install"
+  },
+  "keywords": [
+    "ffos",
+    "firefox",
+    "ribbon"
+  ],
+  "author": "Blaine Bublitz",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "cb4d12c32b41829f6d07bc4f91af426a9059b8e2"
+}

@@ -1,0 +1,23 @@
+{
+  "name": "infinicatr",
+  "version": "0.0.0",
+  "homepage": "https://github.com/halkeye/infinicatr",
+  "authors": [
+    "Gavin Mogan <gavin@kodekoan.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "dist",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "firefox-install": "~0.1.0",
+    "building-blocks": "~1.3.1",
+    "mustache": "~0.8.1",
+    "mousetrap": "~1.4.6"
+  }
+}

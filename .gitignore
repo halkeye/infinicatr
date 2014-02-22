@@ -41,6 +41,9 @@ publish
 build/buildinfo.properties
 build/config/buildinfo.properties
 
+# bower usemin temp
+.tmp
+
 www-built
 dist
 www-ghdeploy
