@@ -42,6 +42,7 @@ build/buildinfo.properties
 build/config/buildinfo.properties
 
 www-built
+dist
 www-ghdeploy
 package.zip
 
