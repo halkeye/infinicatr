@@ -12,39 +12,15 @@ module.exports = function(grunt) {
         files: [
           {expand: true, cwd: 'app', src: ['*.ico', 'index.html', 'manifest.webapp'], dest: '<%= outdir %>/'},
           //{src: ['../gaia/shared/style*/**/*.png'], dest: '<%= outdir %>/css/'},
-          {src: ['app/img/**'], dest: '<%= outdir %>/img/'}
+          {src: ['app/img/**'], dest: '<%= outdir %>/img/'},
+          {expand: true, cwd: 'bower_components/building-blocks/style_unstable', src: ['progress_activity/**'], dest: '<%= outdir %>/css/'}
         ]
       },
-    },
-    copy2: {
-      main: {
-        files: [
-          {src: ['app/*.ico', 'app/index.html', 'app/manifest.webapp'], dest: '<%= outdir %>/'},
-          //{src: ['../gaia/shared/style*/**/*.png'], dest: '<%= outdir %>/css/'},
-          {src: ['app/img/**'], dest: '<%= outdir %>/img/'}
-        ]
-      },
-      gaia_style: {
-        options: {
-          basePath: '../gaia/shared/style'
-        },
-        files: [
-          {src: ['../gaia/shared/style/**/*.png'], dest: '<%= outdir %>/css/'}
-        ]
-      },
-      gaia_style_unstable: {
-        options: {
-          basePath: '../gaia/shared/style_unstable'
-        },
-        files: [
-          {src: ['../gaia/shared/style_unstable/**/*.png'], dest: '<%= outdir %>/css/'}
-        ]
-      }
     },
     clean: [ '<%= outdir %>/' ],
     watch: {
       files: '<config:lint.files>',
-      tasks: 'lint'
+      tasks: 'jslint'
     },
     jshint: {
       all: ['Gruntfile.js', 'app/js/**/*.js', 'test/**/*.js']
@@ -96,22 +72,17 @@ module.exports = function(grunt) {
       html: 'app/index.html',
       options: {
         dest: '<%= outdir %>/',
-        assetDirs: ['app', '<%= outdir %>', 'Building-Blocks-gh-pages']
+        assetDirs: ['app', '<%= outdir %>', 'bower_components/building-blocks']
       }
     },
     usemin: {
       html: '<%= outdir %>/index.html',
-//      html: ['<%= outdir %>/index.html'],
-//      css: ['<%= outdir %>/css/app.css'],
-      options: {
-        assetDirs: ['app', '<%= outdir %>', 'Building-Blocks-gh-pages']
-      }
     },
-    uglify: {
+    /*uglify: {
       mangle: {toplevel: true},
       squeeze: {dead_code: false},
       codegen: {quote_keys: true}
-    },
+    },*/
     connect: {
       server: {
         options: {
@@ -134,6 +105,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-rsync');
   grunt.loadNpmTasks('grunt-usemin');
+  grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-gh-pages');
 
   /* TODO - add gh-pages */
