@@ -137,7 +137,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-gh-pages');
 
   /* TODO - add gh-pages */
-  grunt.registerTask('serve', ['connect:keepalive']);
+  grunt.registerTask('serve', ['connect:server:keepalive']);
   grunt.registerTask('build', ['useminPrepare','copy','concat','cssmin','uglify','usemin']);
   grunt.registerTask('deploy', ['rsync']);
 

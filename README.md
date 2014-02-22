@@ -1,13 +1,7 @@
-# InfiniCatr Web App
+# InfiniCatr Web App [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 Open Web App that shows a "neverending" stream of cat pictures. 
 
-Originally used the [mortar](https://github.com/mozilla/mortar/) templates
-
 # Usage
 
-Start volo serve now to get content serving on localhost
-
-* volo serve
-
-View the app at http://localhost:8008/.
+* grunt
