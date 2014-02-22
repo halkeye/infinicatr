@@ -7,10 +7,10 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: '<json:package.json>',
     outdir: 'dist',
-    copy3: {
+    copy: {
       main: {
         files: [
-          {expand: true, src: ['app/*.ico', 'app/index.html', 'app/manifest.webapp'], dest: '<%= outdir %>/'},
+          {expand: true, cwd: 'app', src: ['*.ico', 'index.html', 'manifest.webapp'], dest: '<%= outdir %>/'},
           //{src: ['../gaia/shared/style*/**/*.png'], dest: '<%= outdir %>/css/'},
           {src: ['app/img/**'], dest: '<%= outdir %>/img/'}
         ]
@@ -95,12 +95,12 @@ module.exports = function(grunt) {
     'useminPrepare': {
       html: 'app/index.html',
       options: {
-        root: 'app',
         dest: '<%= outdir %>/',
+        assetDirs: ['app', '<%= outdir %>', 'Building-Blocks-gh-pages']
       }
     },
     usemin: {
-      html: 'app/index.html',
+      html: '<%= outdir %>/index.html',
 //      html: ['<%= outdir %>/index.html'],
 //      css: ['<%= outdir %>/css/app.css'],
       options: {
@@ -124,10 +124,12 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-manifest');
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-rsync');
@@ -136,7 +138,7 @@ module.exports = function(grunt) {
 
   /* TODO - add gh-pages */
   grunt.registerTask('serve', ['connect:keepalive']);
-  grunt.registerTask('build', ['useminPrepare','copy','usemin','manifest']);
+  grunt.registerTask('build', ['useminPrepare','copy','concat','cssmin','uglify','usemin']);
   grunt.registerTask('deploy', ['rsync']);
 
   // Default task.

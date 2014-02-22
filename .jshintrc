@@ -1,6 +1,8 @@
 {
     "predef": [
-        "angular"
+        "Mustache",
+        "Mousetrap",
+        "jQuery"
     ],
     "indent": 2,
     "trailing": true,

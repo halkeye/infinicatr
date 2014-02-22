@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="css/install-button.css">
 
     <!-- Gaia Theme -->
-    <link rel="stylesheet" href="../Building-Blocks-gh-pages/style/headers.css">
-    <link rel="stylesheet" href="../Building-Blocks-gh-pages/style/progress_activity.css">
+    <link rel="stylesheet" href="../bower_components/building-blocks/style/headers.css">
+    <link rel="stylesheet" href="../bower_components/building-blocks/style_unstable/progress_activity.css">
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
@@ -50,6 +50,8 @@
     <script type="text/javascript" src="lib/jquery.touchSwipe.min.js"></script>
     <script type="text/javascript" src="lib/install-button.js"></script>
     <script type="text/javascript" src="js/app-main.min.js"></script>
+    <script type="text/javascript" src="../bower_components/mustache/mustache.js"></script>
+    <script type="text/javascript" src="../bower_components/mousetrap/mousetrap.js"></script>
     <!-- endbuild -->
     <script type="text/javascript">
 
@@ -63,6 +65,15 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
 
+    </script>
+    <script id="carousel-entry-template" type="text/x-handlebars-template">
+      <div id="flickr_photo_{{elm.id}}" class="item">
+        <div>
+          <img class="flikr_img" src="{{elm.url_z}}" style="width: 100%">
+        </div>
+        <div style="text-align: center">
+          <a target="_new" href="{{elm.photo_info_url}}"><img src="http://l.yimg.com/g/images/goodies/white-flickr.png" /></a>
+        </div>
     </script>
   </body>
 </html>
