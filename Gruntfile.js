@@ -8,14 +8,16 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     webapp: grunt.file.readJSON('app/manifest.webapp'),
     outdir: 'dist',
+    appdir: 'app',
+    bowerdir: '<%= appdir %>/bower_components',
 
     copy: {
       main: {
         files: [
           {expand: true, cwd: 'app', src: ['*.ico', 'index.html', 'manifest.webapp'], dest: '<%= outdir %>/'},
           //{src: ['../gaia/shared/style*/**/*.png'], dest: '<%= outdir %>/css/'},
-          {src: ['app/img/**'], dest: '<%= outdir %>/img/'},
-          {expand: true, cwd: 'bower_components/building-blocks/style_unstable', src: ['progress_activity/**'], dest: '<%= outdir %>/css/'}
+          {expand: true, cwd: 'app',src: ['img/**/*.png'], dest: '<%= outdir %>/'},
+          {expand: true, cwd: '<%= bowerdir %>/building-blocks/style_unstable', src: ['progress_activity/**'], dest: '<%= outdir %>/css/'}
         ]
       },
     },
@@ -33,26 +35,30 @@ module.exports = function(grunt) {
           basePath: "<%= outdir %>",
           network: ["*", "http://*", "https://*"],
           preferOnline: true,
+          hash: false,
           timestamp: true
         },
         src: [
           "*.html",
-          "img/icons/icon-*.png",
+          "icons/icon-*.png",
           "lib/**/*",
+          "img/**/*",
           "js/**/*",
           "css/**/*.css",
-          "shared/**"
+          "css/**/*.png",
         ],
         dest: "<%= outdir %>/manifest.appcache"
       }
     },
     rsync: {
       "deploy-live": {
-        src: "<%= outdir %>/",
-        dest: "/home/apache/vhosts/kodekoan.com/apps/infinicatr/",
-        host: "rib",
-        recursive: true,
-        syncDest: true
+        options: {
+          src: "<%= outdir %>/",
+          dest: "/home/apache/vhosts/kodekoan.com/apps/infinicatr/",
+          host: "rib",
+          recursive: true,
+          syncDest: true
+        }
       }
     },
     replace: {
@@ -71,11 +77,16 @@ module.exports = function(grunt) {
         }
       }
     },
+    filerev: {
+      images: { src: '<%= outdir %>/img/**/*.{jpg,jpeg,gif,png,webp}' },
+      css: { src: '<%= outdir %>/css/**/*.css' },
+      js: { src: '<%= outdir %>/js/**/*.js' }
+    },
     'useminPrepare': {
       html: 'app/index.html',
       options: {
         dest: '<%= outdir %>/',
-        assetDirs: ['app', '<%= outdir %>', 'bower_components/building-blocks']
+        assetDirs: ['app', '<%= outdir %>', '<%= bowerdir %>/building-blocks']
       }
     },
     usemin: {
@@ -105,7 +116,7 @@ module.exports = function(grunt) {
   };
   Object.keys(gruntConfig.webapp.icons).forEach(function(icon) {
     var files = {};
-    files['dist/img/icons/icon-' + icon + '.png'] = 'app/img/icons/icon.svg';
+    files['dist/icons/icon-' + icon + '.png'] = 'app/icons/icon.svg';
     gruntConfig.image_resize['icon_' + icon] = {
       options: { width: icon },
       files: files
@@ -130,9 +141,9 @@ module.exports = function(grunt) {
 
   /* TODO - add gh-pages */
   grunt.registerTask('serve', ['connect:server:keepalive']);
-  grunt.registerTask('build', ['useminPrepare','copy','concat','cssmin','uglify','image_resize','usemin']);
+  grunt.registerTask('build', ['useminPrepare','copy','concat','cssmin','uglify','image_resize','filerev','usemin']);
   grunt.registerTask('deploy', ['rsync']);
-  grunt.registerTask('dist', ['build','replace','gh-pages']);
+  grunt.registerTask('dist', ['build','manifest','replace','gh-pages']);
 
   // Default task.
   grunt.registerTask('default', ['jshint','clean','build','replace']);

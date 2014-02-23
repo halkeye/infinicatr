@@ -52,3 +52,6 @@ www-ghdeploy
 package.zip
 
 node_modules
+app/bower_components
+.direnv
+.envrc
