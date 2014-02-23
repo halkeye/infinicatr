@@ -98,10 +98,13 @@ module.exports = function(grunt) {
     usemin: {
       html: '<%= outdir %>/index.html',
     },
-    /*uglify: {
-      mangle: {toplevel: true},
-      squeeze: {dead_code: false},
-      codegen: {quote_keys: true}
+    /*
+    uglify: {
+      options: {
+        mangle: false,
+        beautify: true,
+        sourceMap: true,
+      }
     },*/
     connect: {
       server: {
