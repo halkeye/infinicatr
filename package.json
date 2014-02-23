@@ -6,9 +6,11 @@
     "url": "git://github.com/halkeye/infinicatr.git"
   },
   "author": "Gavin Mogan <gavin@kodekoan.com>",
-  "dependencies": {},
+  "dependencies": {
+    "grunt-css": "~0.5.4",
+    "grunt-contrib-connect": "~0.7.0"
+  },
   "devDependencies": {
-    "connect": "~2.4.4",
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-rsync": "~0.3.0",
