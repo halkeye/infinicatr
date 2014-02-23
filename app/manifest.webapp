@@ -1,15 +1,15 @@
 {
-  "version": "0.2",
+  "version": "0.2.1",
   "name": "InfiniCatr",
   "description": "Endless Supply of cat pictures (as provided by flickr)",
   "launch_path": "/index.html",
   "icons": {
-    "32":  "icons/icon-32.png",
-    "60":  "icons/icon-60.png",
-    "90":  "icons/icon-90.png",
-    "120": "icons/icon-120.png",
-    "128": "icons/icon-128.png",
-    "256": "icons/icon-256.png"
+    "32":  "/icons/icon-32.png",
+    "60":  "/icons/icon-60.png",
+    "90":  "/icons/icon-90.png",
+    "120": "/icons/icon-120.png",
+    "128": "/icons/icon-128.png",
+    "256": "/icons/icon-256.png"
   },
   "permissions": {
       "systemXHR": {
