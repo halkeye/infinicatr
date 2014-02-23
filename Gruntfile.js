@@ -173,6 +173,12 @@ module.exports = function(grunt) {
   grunt.registerTask('build', ['hogan','useminPrepare','copy','concat','cssmin','uglify','image_resize','filerev','usemin']);
   grunt.registerTask('deploy', ['rsync']);
   grunt.registerTask('dist', ['build', 'gh-pages', 'rsync']);
+  /* FIXME 
+   * add - dist:rib ['clean','build','replace:ga', 'rsync:rib'] 
+   * add - dist:gh ['clean','build','replace:ga', 'gh-pages'] 
+   * add - dist:zip ['clean','build','zip'] 
+   * or maybe make zip task remove GA?
+   */
 
   // Default task.
   grunt.registerTask('default', ['jshint','clean','build']);
