@@ -23,8 +23,10 @@ module.exports = function(grunt) {
     },
     clean: [ '<%= outdir %>/' ],
     watch: {
-      files: '<config:lint.files>',
-      tasks: 'jslint'
+      app: {
+        files: ['app/**/*'],
+        tasks: ['clean', 'build']
+      }
     },
     jshint: {
       all: ['Gruntfile.js', 'app/js/**/*.js', 'test/**/*.js']
@@ -51,9 +53,9 @@ module.exports = function(grunt) {
       }
     },
     rsync: {
-      "deploy-live": {
+      rib: {
         options: {
-          src: "<%= outdir %>/",
+          src: '<%= outdir %>/',
           dest: "/home/apache/vhosts/kodekoan.com/apps/infinicatr/",
           host: "rib",
           recursive: true,
@@ -112,13 +114,20 @@ module.exports = function(grunt) {
       },
       src: ['**']
     },
+    zip: {
+      dist: {
+        cwd: '<%= outdir %>',
+        src: ['dist/**/*'],
+        dest: '<%= pkg.name %>.zip'
+      }
+    },
     image_resize: {}
   };
   Object.keys(gruntConfig.webapp.icons).forEach(function(icon) {
     var files = {};
     files['dist/icons/icon-' + icon + '.png'] = 'app/icons/icon.svg';
     gruntConfig.image_resize['icon_' + icon] = {
-      options: { width: icon },
+      options: { width: icon, height: icon, upscale: true },
       files: files
     };
   });
@@ -131,19 +140,24 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-manifest');
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-rsync');
   grunt.loadNpmTasks('grunt-usemin');
   grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-gh-pages');
+  grunt.loadNpmTasks('grunt-zip');
   grunt.loadNpmTasks('grunt-image-resize');
 
-  /* TODO - add gh-pages */
   grunt.registerTask('serve', ['connect:server:keepalive']);
+  /* Manifest is probably never going to be used, but when it is, make sure the index is altered as well */
+  grunt.renameTask('manifest', 'origmanifest');
+  grunt.registerTask('manifest', ['origmanifest','replace']);
+  /* Build */
   grunt.registerTask('build', ['useminPrepare','copy','concat','cssmin','uglify','image_resize','filerev','usemin']);
   grunt.registerTask('deploy', ['rsync']);
-  grunt.registerTask('dist', ['build','manifest','replace','gh-pages']);
+  grunt.registerTask('dist', ['build', 'gh-pages', 'rsync']);
 
   // Default task.
   grunt.registerTask('default', ['jshint','clean','build','replace']);
