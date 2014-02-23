@@ -43,6 +43,8 @@ build/config/buildinfo.properties
 
 # bower usemin temp
 .tmp
+# grunt-ghpages temp
+.grunt
 
 www-built
 dist
