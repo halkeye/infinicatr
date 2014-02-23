@@ -4,9 +4,11 @@ module.exports = function(grunt) {
   "use strict";
 
   // Project configuration.
-  grunt.initConfig({
-    pkg: '<json:package.json>',
+  var gruntConfig = {
+    pkg: grunt.file.readJSON('package.json'),
+    webapp: grunt.file.readJSON('app/manifest.webapp'),
     outdir: 'dist',
+
     copy: {
       main: {
         files: [
@@ -98,8 +100,18 @@ module.exports = function(grunt) {
         base: '<%= outdir %>',
       },
       src: ['**']
-    }
+    },
+    image_resize: {}
+  };
+  Object.keys(gruntConfig.webapp.icons).forEach(function(icon) {
+    var files = {};
+    files['dist/img/icons/icon-' + icon + '.png'] = 'app/img/icons/icon.svg';
+    gruntConfig.image_resize['icon_' + icon] = {
+      options: { width: icon },
+      files: files
+    };
   });
+  grunt.initConfig( gruntConfig );
 
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
@@ -114,10 +126,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-usemin');
   grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-gh-pages');
+  grunt.loadNpmTasks('grunt-image-resize');
 
   /* TODO - add gh-pages */
   grunt.registerTask('serve', ['connect:server:keepalive']);
-  grunt.registerTask('build', ['useminPrepare','copy','concat','cssmin','uglify','usemin']);
+  grunt.registerTask('build', ['useminPrepare','copy','concat','cssmin','uglify','image_resize','usemin']);
   grunt.registerTask('deploy', ['rsync']);
   grunt.registerTask('dist', ['build','replace','gh-pages']);
 

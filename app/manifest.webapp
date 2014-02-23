@@ -1,14 +1,16 @@
 {
   "manifest_version": 2,
-  "version": "0.1",
+  "version": "0.2",
   "name": "InfiniCatr",
   "description": "Endless Supply of cat pictures (as provided by flickr)",
+  "launch_path": "index.html",
   "icons": {
-    "16": "/img/icons/icon-16.png",
-    "48": "/img/icons/icon-48.png",
-    "128": "/img/icons/icon-128.png"
+    "32":  "img/icons/icon-32.png",
+    "60":  "img/icons/icon-60.png",
+    "90":  "img/icons/icon-90.png",
+    "120": "img/icons/icon-120.png",
+    "256": "img/icons/icon-256.png"
   },
-  "launch_path": "/infinicatr/index.html",
   "permissions": {
       "systemXHR": {
           "description": "Required to access flickr api"
@@ -19,5 +21,5 @@
     "url": "http://www.kodekoan.com"
   },
   "installs_allowed_from": ["*"],
-  "default_locale": "en"
+  "default_locale": "en-US"
 }
