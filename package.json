@@ -7,8 +7,6 @@
   },
   "author": "Gavin Mogan <gavin@kodekoan.com>",
   "dependencies": {
-    "grunt-css": "~0.5.4",
-    "grunt-contrib-connect": "~0.7.0"
   },
   "devDependencies": {
     "grunt-contrib-copy": "~0.5.0",
@@ -16,7 +14,7 @@
     "grunt-rsync": "~0.3.0",
     "grunt-text-replace": "~0.3.11",
     "grunt-usemin": "~2.0.2",
-    "grunt-css": "~0.3.2",
+    "grunt-css": "~0.5.4",
     "grunt": "~0.4.2",
     "grunt-gh-pages": "~0.9.1",
     "grunt-contrib-connect": "~0.7.0",
