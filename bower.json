@@ -21,6 +21,7 @@
     "mousetrap": "~1.4.6",
     "bootstrap": "~3.1.1",
     "jquery-touchswipe": "~1.6.4",
-    "shake.js": "~1.1.0"
+    "shake.js": "~1.1.0",
+    "hogan": "~3.0.0"
   }
 }

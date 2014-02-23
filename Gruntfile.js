@@ -23,6 +23,10 @@ module.exports = function(grunt) {
     },
     clean: [ '<%= outdir %>/' ],
     watch: {
+      templates: {
+        files: ['app/templates/**/*.html'],
+        tasks: ['hogan']
+      },
       app: {
         files: ['app/**/*'],
         tasks: ['clean', 'build']
@@ -112,7 +116,14 @@ module.exports = function(grunt) {
       options: {
         base: '<%= outdir %>',
       },
-      src: ['**']
+      src: ['**/*']
+    },
+    hogan: {
+      publish: {
+        templates: 'app/templates/*.html',
+        output: 'app/js/templates.js',
+        binderName: 'hulk'
+      }
     },
     zip: {
       dist: {
@@ -141,6 +152,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-hogan');
   grunt.loadNpmTasks('grunt-manifest');
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-rsync');
@@ -155,11 +167,11 @@ module.exports = function(grunt) {
   grunt.renameTask('manifest', 'origmanifest');
   grunt.registerTask('manifest', ['origmanifest','replace']);
   /* Build */
-  grunt.registerTask('build', ['useminPrepare','copy','concat','cssmin','uglify','image_resize','filerev','usemin']);
+  grunt.registerTask('build', ['hogan','useminPrepare','copy','concat','cssmin','uglify','image_resize','filerev','usemin']);
   grunt.registerTask('deploy', ['rsync']);
   grunt.registerTask('dist', ['build', 'gh-pages', 'rsync']);
 
   // Default task.
-  grunt.registerTask('default', ['jshint','clean','build','replace']);
+  grunt.registerTask('default', ['jshint','clean','build']);
 
 };
