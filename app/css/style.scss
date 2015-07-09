@@ -1,5 +1,7 @@
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 @import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+@import 'Semantic-UI-loader.scss';
+
 //@import '~font-awesome/scss/_variables.scss';
 //$fa-font-path: "~font-awesome/fonts/";
 //@import '~font-awesome/scss/font-awesome.scss';
@@ -7,3 +9,15 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 /* Your styles here */
 html, head, body { margin: 0; padding: 0 }
 
+#loading_flickr_indicator {
+  @extend .ui.loader;
+  @extend .ui.centered.loader;
+  @extend .ui.centered.inline.loader.active;
+}
+
+#loading_flickr_container {
+  position: absolute;
+  right: 25px;
+  top: 0px;
+  height: 50px;
+}

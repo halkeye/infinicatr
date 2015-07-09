@@ -22,12 +22,6 @@ NoErrorsPluginBeep.prototype.apply = function(compiler) {
   });
 };
 
-var sassLoaders = [
-  'css-loader',
-  'autoprefixer-loader?browsers=last 2 version',
-  'sass-loader?indentedSyntax=sass&includePaths[]=' + path.resolve(__dirname, './app') + '&includePaths[]=' + path.resolve(__dirname, './node_modules')
-];
-
 var scssLoaders = [
   'css-loader',
   'autoprefixer-loader?browsers=last 2 version',
@@ -55,10 +49,6 @@ var config = {
         test: /\.mustache$/,
         loader: 'mustache?minify'
       },
-      {
-        test: /\.sass$/,
-        loader: ExtractTextPlugin.extract('style-loader', sassLoaders.join('!'))
-      },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff' },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
       { test: /\.(gif|jpg|jpeg|png)$/, loader: 'file-loader' }
@@ -77,7 +67,7 @@ var config = {
     //new webpack.DefinePlugin({GA_TRACKING_CODE: JSON.stringify('UA-89920-12')})
   ],
   resolve: {
-    extensions: ['', '.jsx', '.js', '.sass', '.scss'],
+    extensions: ['', '.jsx', '.js', '.sass', '.scss', '.css'],
     modulesDirectories: ['app', 'node_modules']
   }
 };
