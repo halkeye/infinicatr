@@ -20,5 +20,6 @@
     "eqnull": true,
     "jquery": true,
     "devel": true,
-    "browser": true
+    "browser": true,
+    "node": true
 }
