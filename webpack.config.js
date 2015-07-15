@@ -3,6 +3,19 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
+var autoprefixer = require('autoprefixer-core');
+
+var isDev = process.env.BUILD_ENV !== 'production';
+var sourceMapParam = isDev ? '?sourceMap' : '';
+
+// Plugins to be used only for production build
+var prodPlugins = isDev
+  ? []
+  : [
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin()
+  ];
 
 function NoErrorsPluginBeep() { }
 NoErrorsPluginBeep.prototype.apply = function(compiler) {
@@ -40,7 +53,27 @@ var config = {
       './app/js/app-main.min.js'
   ],
   module: {
+    preLoaders: [
+      {
+          test: /\.jsx?$/,
+          exclude: /node_modules|bower_components/,
+          loader: 'eslint-loader'
+      }
+    ],
     loaders: [
+      // Copy the files required for a Firefox OS app, preserving their names
+      {
+        test: /manifest\.webapp|icon-(32|60|90|120|128|256|512)\.png/,
+        loader: 'file?name=[name].[ext]'
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract(
+          'style-loader',
+          'css-loader?importLoaders=1' + sourceMapParam.replace('?', '&')
+          + '!postcss-loader' + sourceMapParam
+        )
+      },
       {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract('style-loader', scssLoaders.join('!'))
@@ -55,13 +88,13 @@ var config = {
     ]
   },
   output: {
-    filename: 'js/[name]-[hash].js',
+    filename: process.env.NODE_ENV === 'production' ?  'js/[name]-[hash].js' : 'js/[name].js',
     path: path.join(__dirname, './dist'),
     publicPath: '/'
   },
   plugins: [
     new NoErrorsPluginBeep(),
-    new ExtractTextPlugin('styles/[name]-[hash].css'),
+    new ExtractTextPlugin(process.env.NODE_ENV === 'production' ? 'styles/[name]-[hash].css' : 'styles/[name].css'),
     new HtmlWebpackPlugin({ inject: true, template: './app/index.html' })//,
     //new webpack.optimize.UglifyJsPlugin(),
     //new webpack.DefinePlugin({GA_TRACKING_CODE: JSON.stringify('UA-89920-12')})
@@ -69,7 +102,11 @@ var config = {
   resolve: {
     extensions: ['', '.jsx', '.js', '.sass', '.scss', '.css'],
     modulesDirectories: ['app', 'node_modules']
-  }
+  },
+  postcss: [
+    // Support Firefox 32 and up, which is equivalent to Firefox OS 2.0 and up
+    autoprefixer({browsers: ['Firefox 32']})
+  ]
 };
 
 module.exports = config;

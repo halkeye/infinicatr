@@ -12,8 +12,9 @@
   },
   "author": "Gavin Mogan <gavin@kodekoan.com>",
   "dependencies": {
-    "express": "4.12.x",
-    "cfenv": "1.0.x"
+    "autoprefixer-core": "^5.2.1",
+    "cfenv": "1.0.x",
+    "express": "4.12.x"
   },
   "devDependencies": {
     "autoprefixer-loader": "^2.0.0",
@@ -28,6 +29,7 @@
     "es5-shim": "^4.1.7",
     "es6-shim": "^0.32.2",
     "eslint": "^0.24.0",
+    "eslint-loader": "^0.14.1",
     "extend": "^3.0.0",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
@@ -37,16 +39,17 @@
     "json-loader": "^0.5.2",
     "json3": "^3.3.2",
     "loader-utils": "^0.2.10",
+    "loaders.css": "^0.1.1",
     "map-stream": "0.0.6",
     "mousetrap": "^1.5.3",
     "mustache-loader": "^0.3.0",
     "node-libs-browser": "^0.5.2",
     "node-sass": "^3.2.0",
+    "postcss-loader": "^0.5.1",
     "raw-loader": "^0.5.1",
     "require-dot-file": "^0.4.0",
     "reqwest": "^1.1.6",
     "sass-loader": "^1.0.2",
-    "semantic-ui": "^2.0.2",
     "style-loader": "^0.12.3",
     "touchswipe": "^1.6.0",
     "url-loader": "^0.5.6",
