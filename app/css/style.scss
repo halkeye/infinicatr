@@ -1,30 +1,159 @@
-$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
-@import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';
-//@import '~font-awesome/scss/_variables.scss';
-//$fa-font-path: "~font-awesome/fonts/";
-//@import '~font-awesome/scss/font-awesome.scss';
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+/* some basic styles. nothing to do with flexbox */
+header, footer,
+section {
+  border: 1px solid black;
+  padding: 0.25em;
+  margin: 0.25em;
+  border-radius: 0.25em;
+}
 
-/* Your styles here */
-html, head, body { margin: 0; padding: 0 }
+/*
+ * Force full width & height.
+ *
+ *  If this block is removed, the layout height/length will be determined by
+ *  the amount of content in the page. That might result in a page which has
+ *  a footer only a few inches from the top of the viewport, or one which
+ *  scrolls beyond the viewport.
+ *
+ *  This forces the layout to always be full screen regardless of how much,
+ *  or how little, content is in place. Neither is "right" or "wrong", there
+ *  are valid cases for each. I just want to be clear what's controlling the
+ *  page/viewport height.
+ */
+html, body, .viewport {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
 
-#loading_flickr_container {
-  position: absolute;
-  right: 25px;
-  top: 0px;
+/* encapsulate the various syntax in helper clases */
+/* inspired by http://infrequently.org/2009/08/css-3-progress/ */
+
+/* items flex/expand vertically */
+.vbox {
+  /* previous syntax */
+  display: -webkit-box;
+  display:    -moz-box;
+  display:         box;
+
+  -webkit-box-orient: vertical;
+     -moz-box-orient: vertical;
+      -ms-box-orient: vertical;
+          box-orient: vertical;
+
+  /* current syntax */
+  display: -webkit-flex;
+  display:    -moz-flex;
+  display:     -ms-flex;
+  display:         flex;
+
+  -webkit-flex-direction: column;
+     -moz-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+header, footer { height: 64px; }
+
+.main {
+  /* previous syntax */
+  -webkit-box-flex: 1;
+     -moz-box-flex: 1;
+      -ms-box-flex: 1;
+          box-flex: 1;
+
+  /* current syntax */
+  -webkit-flex: 1;
+     -moz-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+header {
+  transform-style: preserve-3d;
+}
+
+header img {
+  height: 60px;
+  width: 60px;
+  vertical-align: middle;
+  float: left;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+header h1 {
+  margin: 0; padding: 0;
+  font-size: 2em;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+header .line-scale > div {
+  background: orange;
   height: 50px;
 }
 
-.carousel-inner {
-  height: 50%;
-  width: 50%;
+/* entire container, keeps perspective */
+section {
+  perspective: 1000px;
 }
 
-.line-scale > div {
-  background: orange;
+.front, .back {
+  width: 100%;
+  height: 100%;
 }
 
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+/* flip speed goes here */
+.flipper {
+  height: 640px;
+  width: 427px;
+
+  transition: 0.6s;
+  transform-style: preserve-3d;
+
+  position: relative;
 }
+
+/* hide back of pane during swap */
+.front, .back {
+  backface-visibility: hidden;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+  z-index: 2;
+  /* for firefox 31 */
+  transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+  transform: rotateY(180deg);
+}
+
+/* flip the pane when hovered */
+.flipped {
+  transform: rotateY(180deg);
+}
+
+.card_face {
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#loading_flickr_container {
+  float: right;
+}
+

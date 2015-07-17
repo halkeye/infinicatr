@@ -61,11 +61,12 @@ var config = {
       }
     ],
     loaders: [
-      // Copy the files required for a Firefox OS app, preserving their names
       {
-        test: /manifest\.webapp|icon-(32|60|90|120|128|256|512)\.png/,
-        loader: 'file?name=[name].[ext]'
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loaders: ['babel-loader']
       },
+      // Copy the files required for a Firefox OS app, preserving their names
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(
@@ -84,7 +85,15 @@ var config = {
       },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff' },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
-      { test: /\.(gif|jpg|jpeg|png)$/, loader: 'file-loader' }
+      { test: /\.(gif|jpg|jpeg|png)$/, loader: 'file-loader' },
+      {
+        test: /manifest\.webapp$/,
+        loader: 'file-loader?name=[name].[ext]'
+      },
+      {
+        test: /icons\/icon-(32|60|90|120|128|256|512)\.png/,
+        loader: 'file-loader?name=icons/[name].[ext]'
+      }
     ]
   },
   output: {
