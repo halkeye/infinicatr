@@ -30,8 +30,6 @@ config.flip_time = 3000;
 
 var $pending = $('#loading_flickr_indicator').hide();
 
-var page = 1;
-var pendingMorePhotos = 0;
 var photos = [];
 
 $(window).on('resize', function() {
@@ -44,30 +42,40 @@ $(window).on('resize', function() {
 
 class Infinicatr {
   constructor() {
+    this.page = 1;
     this.timeout = 0;
+    this.pendingMorePhotos = null;
   }
 
   _doFlickrRequest(data) {
-    var query = {
-      dataType: 'jsonp',
-      jsonp: 'jsoncallback',
-      data: {
-        'api_key': config.flickr_key,
-        'format': 'json'
-      }
-    };
-    query.data = assign({}, query.data, data);
-    if (config.is_chrome_app) {
-      query.dataType = 'json';
-      query.jsonp = false;
-      query.data.nojsoncallback = 1;
-    }
     return new Promise(function(resolve, reject) {
-      $.ajax('https://api.flickr.com/services/rest/', query).done((jsonData) => {
-        resolve(jsonData);
-      }).fail((response, textStatus) => {
-        reject(textStatus);
-      });
+      var query = {
+        dataType: 'jsonp',
+        jsonp: 'jsoncallback',
+        beforeSend: function() {
+          $pending.show();
+        },
+        data: {
+          'api_key': config.flickr_key,
+          'format': 'json'
+        }
+      };
+      query.data = assign({}, query.data, data);
+      if (config.is_chrome_app) {
+        query.dataType = 'json';
+        query.jsonp = false;
+        query.data.nojsoncallback = 1;
+      }
+      $.ajax('https://api.flickr.com/services/rest/', query)
+        .always(() => {
+          $pending.hide();
+        })
+        .done((jsonData) => {
+          resolve(jsonData);
+        })
+        .fail((response, textStatus) => {
+          reject(textStatus);
+        });
     });
   }
 
@@ -115,50 +123,30 @@ class Infinicatr {
   }
 
   getMorePhotos() {
-    return new Promise(function(resolve, reject) {
-      if (pendingMorePhotos) { return resolve(); }
-      /* Fetching photos! PLEASE WAIT! */
-      pendingMorePhotos = 1;
-      var query = {
-        dataType: 'jsonp',
-        jsonp: 'jsoncallback',
-        beforeSend: function() {
-          $pending.show();
-        },
-        complete: function() {
-          pendingMorePhotos = 0;
-          $pending.hide();
-        },
-        error: function() {
-          reject();
-        },
-        success: function(data) {
-          data.photos.photo.forEach(function(photo) {
-            if (!photo.url_z) { return; }
-            photos.push(photo);
-          });
-          resolve();
-        },
-        data: {
-          'api_key': config.flickr_key,
-          'content_type': '1', // 1 = photos only
-          'extras': ['owner_name', 'license', 'url_z', 'media'].join(','),
-          'format': 'json',
-          'method': 'flickr.photos.search',
-          'media': 'photos',
-          'page': page,
-          'per_page': config.page_size,
-          'safe_search': '1', // 1 = safe search
-          'tags': 'cats'
-        }
-      };
-      if (config.is_chrome_app) {
-        query.dataType = 'json';
-        query.jsonp = false;
-        query.data.nojsoncallback = 1;
-      }
-      $.ajax('https://api.flickr.com/services/rest/', query);
+    if (this.pendingMorePhotos) { return this.pendingMorePhotos; }
+    /* Fetching photos! PLEASE WAIT! */
+    this.pendingMorePhotos = this._doFlickrRequest({
+      'content_type': '1', // 1 = photos only
+      'extras': ['owner_name', 'license', 'url_z', 'media'].join(','),
+      'format': 'json',
+      'method': 'flickr.photos.search',
+      'media': 'photos',
+      'page': this.page,
+      'per_page': config.page_size,
+      'safe_search': '1', // 1 = safe search
+      'tags': 'cats'
+    })
+    .then((data) => {
+      data.photos.photo.forEach(function(photo) {
+        if (!photo.url_z) { return; }
+        photos.push(photo);
+      });
+      this.page++;
+    })
+    .finally(() => {
+      this.pendingMorePhotos = null;
     });
+    return this.pendingMorePhotos;
   }
   loadImage(uri) {
     return new Promise(function(resolve, reject) {
@@ -193,7 +181,7 @@ class Infinicatr {
 }
 
 var app = new Infinicatr();
-app.getLicenses().then(app.getMorePhotos).then(function() {
+app.getLicenses().then(app.getMorePhotos.bind(app)).then(function() {
   app.changePhoto();
 });
 
