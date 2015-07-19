@@ -105,7 +105,7 @@ class Infinicatr {
       side.css('background-image', 'url(' + uri + ')');
       flipper.toggleClass('flipped');
       this.timeout = setTimeout(this.changePhoto.bind(this), config.flip_time);
-      $('footer .photo_title').text(photo.title);
+      $('footer .photo_title').attr('href', 'https://www.flickr.com/photos/' + photo.owner + '/' + photo.id).text(photo.title);
       $('footer .photo_author').attr('href', 'https://www.flickr.com/people/' + photo.owner).text(photo.ownername);
       let license = this.licenses[photo.license];
       $('footer .photo_license').attr('href', license.url).text(license.name);
