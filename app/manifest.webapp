@@ -1,5 +1,5 @@
 {
-  "version": "0.2.2",
+  "version": "2.0.0",
   "name": "InfiniCatr",
   "description": "Endless Supply of cat pictures (as provided by flickr)",
   "launch_path": "/index.html",
@@ -19,6 +19,7 @@
   },
   "developer": {
     "name": "Gavin Mogan",
+    "email": "gavin@gavinmogan.com",
     "url": "http://www.gavinmogan.com"
   },
   "installs_allowed_from": ["*"],

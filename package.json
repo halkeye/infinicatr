@@ -1,6 +1,7 @@
 {
   "name": "infinicatr",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "description": "Endless Supply of cat pictures (as provided by flickr)",
   "scripts": {
     "start": "node app.js",
     "upload_bluemix": "npm run build && cf push infinicatr",
