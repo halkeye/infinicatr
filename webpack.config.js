@@ -104,7 +104,7 @@ var config = {
   output: {
     filename: process.env.NODE_ENV === 'production' ?  'js/[name]-[hash].js' : 'js/[name].js',
     path: path.join(__dirname, './dist'),
-    publicPath: '/'
+    publicPath: './'
   },
   plugins: [
     new NoErrorsPluginBeep(),

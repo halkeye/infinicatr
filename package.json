@@ -6,7 +6,8 @@
     "start": "node app-server.js",
     "upload_bluemix": "npm run build && cf push infinicatr",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack -p",
-    "build_chrome_package": "rm -rf dist && NODE_ENV=production ./node_modules/.bin/webpack -p && cd dist && zip -r ../infinicatr.zip *"
+    "build_chrome_package": "rm -rf dist && NODE_ENV=production ./node_modules/.bin/webpack -p && cd dist && zip -r ../infinicatr.zip *",
+    "deploy_apps": "rm -rf dist && NODE_ENV=production ./node_modules/.bin/webpack -p && cd dist && rsync -vazt --delete * rib:/home/apache/vhosts/gavinmogan.com/apps/infinicatr/"
   },
   "repository": {
     "type": "git",
