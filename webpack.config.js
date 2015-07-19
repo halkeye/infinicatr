@@ -51,7 +51,7 @@ var config = {
       'json3',
       'html5shiv/dist/html5shiv-printshiv.js',*/
      'js/chrome-background.js',
-     './app/js/app-main.min.js'
+     './app/js/app.js'
   ],
   module: {
     preLoaders: [

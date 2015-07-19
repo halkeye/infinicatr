@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Endless Supply of cat pictures (as provided by flickr)",
   "scripts": {
-    "start": "node app.js",
+    "start": "node app-server.js",
     "upload_bluemix": "npm run build && cf push infinicatr",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack -p"
   },
