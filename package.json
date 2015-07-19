@@ -16,7 +16,8 @@
     "autoprefixer-core": "^5.2.1",
     "bluebird": "^2.9.34",
     "cfenv": "1.0.x",
-    "express": "4.12.x"
+    "express": "4.12.x",
+    "object-assign": "^3.0.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^2.0.0",
