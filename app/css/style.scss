@@ -38,41 +38,23 @@ html, body, .viewport {
 /* items flex/expand vertically */
 .vbox {
   /* previous syntax */
-  display: -webkit-box;
-  display:    -moz-box;
   display:         box;
-
-  -webkit-box-orient: vertical;
-     -moz-box-orient: vertical;
-      -ms-box-orient: vertical;
-          box-orient: vertical;
+  box-orient: vertical;
 
   /* current syntax */
-  display: -webkit-flex;
-  display:    -moz-flex;
-  display:     -ms-flex;
   display:         flex;
 
-  -webkit-flex-direction: column;
-     -moz-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
 
 header, footer { height: 64px; }
 
 .main {
   /* previous syntax */
-  -webkit-box-flex: 1;
-     -moz-box-flex: 1;
-      -ms-box-flex: 1;
-          box-flex: 1;
+  box-flex: 1;
 
   /* current syntax */
-  -webkit-flex: 1;
-     -moz-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  flex: 1;
 }
 
 header {
