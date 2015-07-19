@@ -43,14 +43,15 @@ var scssLoaders = [
 
 var config = {
   entry: [
-      'consolelog',
+      /*'consolelog',
       'es5-shim',
       'es5-shim/es5-sham',
       'es6-shim',
       'es6-shim/es6-sham',
       'json3',
-      'html5shiv/dist/html5shiv-printshiv.js',
-      './app/js/app-main.min.js'
+      'html5shiv/dist/html5shiv-printshiv.js',*/
+     'js/chrome-background.js',
+     './app/js/app-main.min.js'
   ],
   module: {
     preLoaders: [
@@ -87,8 +88,12 @@ var config = {
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
       { test: /\.(gif|jpg|jpeg|png)$/, loader: 'file-loader' },
       {
-        test: /manifest\.webapp$/,
+        test: /manifest\.webapp|manifest\.json$/,
         loader: 'file-loader?name=[name].[ext]'
+      },
+      {
+        test: /js\/chrome-background\.js$/,
+        loader: 'file-loader?name=js/[name].[ext]'
       },
       {
         test: /icons\/icon-(32|60|90|120|128|256|512)\.png/,
