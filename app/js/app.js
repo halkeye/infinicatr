@@ -1,10 +1,9 @@
-'use strict';
 require('../../node_modules/loaders.css/loaders.css');
 require('../css/style.scss');
-var assign = require('object-assign');
+const assign = require('object-assign');
 
-(function() {
-  let size = 60;
+(function () {
+  const size = 60;
   /* hack to require them all */
   require('../icons/icon-' + size + '.png');
   require('../manifest.webapp');
@@ -13,13 +12,13 @@ var assign = require('object-assign');
 
 require('file?name=favicon.ico!../favicon.ico');
 
-var Promise = require('bluebird');
-var Mousetrap = require('mousetrap');
-var $ = require('jquery');
+const Promise = require('bluebird');
+const Mousetrap = require('mousetrap');
+const $ = require('jquery');
 //require('touchswipe')($);
 //window.jQuery = $;
 
-var config = {};
+const config = {};
 config.flickr_key = '850775ffc1d6d95478d78bee0fdf4971';
 config.pending_message = 'Please wait. Fetching more content';
 config.page_size = 10;
@@ -28,12 +27,10 @@ config.max_photos = config.page_size * 3;
 config.is_chrome_app = window.chrome && window.chrome.permissions;
 config.flip_time = 3000;
 
-var $pending = $('#loading_flickr_indicator').hide();
+const $pending = $('#loading_flickr_indicator').hide();
 
-var photos = [];
-
-$(window).on('resize', function() {
-  var dimension = Math.min($('.main').height(), $('.main').width());
+$(window).on('resize', function () {
+  const dimension = Math.min($('.main').height(), $('.main').width());
   $('.flipper').css({
     height: dimension,
     width: dimension
@@ -45,14 +42,15 @@ class Infinicatr {
     this.page = 1;
     this.timeout = 0;
     this.pendingMorePhotos = null;
+    this.photos = [];
   }
 
   _doFlickrRequest(data) {
-    return new Promise(function(resolve, reject) {
-      var query = {
+    return new Promise(function (resolve, reject) {
+      const query = {
         dataType: 'jsonp',
         jsonp: 'jsoncallback',
-        beforeSend: function() {
+        beforeSend: () => {
           $pending.show();
         },
         data: {
@@ -96,15 +94,10 @@ class Infinicatr {
     }
     this.timeout = 0;
 
-    var flipper = $('.flipper');
-    var side = $('.back');
-
-    if (flipper.is('.flipped')) {
-      side = $('.front');
-    }
-
-    var photo = photos.pop();
-    if (photos.length <= config.pending_photos_threshold) {
+    const flipper = $('.flipper');
+    const side = flipper.is('.flipped') ? $('.front') : $('.back');
+    const photo = this.photos.pop();
+    if (this.photos.length <= config.pending_photos_threshold) {
       this.getMorePhotos();
     }
     if (!photo) { return; }
@@ -113,10 +106,15 @@ class Infinicatr {
       side.css('background-image', 'url(' + uri + ')');
       flipper.toggleClass('flipped');
       this.timeout = setTimeout(this.changePhoto.bind(this), config.flip_time);
-      $('footer .photo_title').attr('href', 'https://www.flickr.com/photos/' + photo.owner + '/' + photo.id).text(photo.title);
-      $('footer .photo_author').attr('href', 'https://www.flickr.com/people/' + photo.owner).text(photo.ownername);
-      let license = this.licenses[photo.license];
-      $('footer .photo_license').attr('href', license.url).text(license.name);
+      $('footer .photo_title')
+        .attr('href', 'https://www.flickr.com/photos/' + photo.owner + '/' + photo.id)
+        .text(photo.title);
+      $('footer .photo_author')
+        .attr('href', 'https://www.flickr.com/people/' + photo.owner)
+        .text(photo.ownername);
+      const license = this.licenses[photo.license];
+      $('footer .photo_license').attr('href', license.url)
+        .text(license.name);
     }).error(() => {
       this.changePhoto();
     });
@@ -137,9 +135,9 @@ class Infinicatr {
       'tags': 'cats'
     })
     .then((data) => {
-      data.photos.photo.forEach(function(photo) {
+      data.photos.photo.forEach((photo) => {
         if (!photo.url_z) { return; }
-        photos.push(photo);
+        this.photos.push(photo);
       });
       this.page++;
     })
@@ -149,16 +147,15 @@ class Infinicatr {
     return this.pendingMorePhotos;
   }
   loadImage(uri) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       if (config.is_chrome_app) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
           if (this.readyState === 4) {
             if (this.status === 200) {
-              var url = window.URL || window.webkitURL;
+              const url = window.URL || window.webkitURL;
               resolve(url.createObjectURL(this.response));
             } else {
-              console.log(this);
               reject();
             }
           }
@@ -167,23 +164,19 @@ class Infinicatr {
         xhr.responseType = 'blob';
         xhr.send();
       } else {
-         var img = new Image();
-         img.src = uri;
-         img.onload = () => {
-           resolve(uri);
-         };
-         img.onerror = () => {
-           reject(uri);
-         };
+        const img = new Image();
+        img.src = uri;
+        img.onload = () => resolve(uri);
+        img.onerror = () => reject(uri);
       }
     });
   }
 }
 
-var app = new Infinicatr();
-app.getLicenses().then(app.getMorePhotos.bind(app)).then(function() {
-  app.changePhoto();
-});
+const app = new Infinicatr();
+app.getLicenses()
+  .then(app.getMorePhotos.bind(app))
+  .then(app.changePhoto.bind(app));
 
 Mousetrap.bind('right', app.changePhoto.bind(app));
 Mousetrap.bind('space', app.changePhoto.bind(app));

@@ -1,27 +1,28 @@
-
 {
-    "parser": "babel-eslint",
+  "parser": "babel-eslint",
     "env": {
-        "node": true,
-        "browser": true,
-        "amd": true,
-        "es6": true
+      "node": true,
+      "browser": true,
+      "amd": true,
+      "es6": true
     },
     "settings": {
-        "ecmascript": 6
+      "ecmascript": 6
     },
     "plugins": [
-    ],
+      ],
     "rules": {
-        "strict": 1,
-        "quotes": [2, "single"],
-        "no-unused-vars": 1,
-        "camelcase": 0,
-        "no-underscore-dangle": 0
+      "strict": 1,
+      "quotes": [2, "single"],
+      "no-unused-vars": 1,
+      "camelcase": 0,
+      "no-underscore-dangle": 0
     },
-    "1ecmaFeatures": {
-      "blockBindings": true
-    }
-
+    "ecmaFeatures": {
+      "blockBindings": true,
+      "ecmaFeatures": true
+    },
+    "extends": [
+      "defaults/configurations/walmart/es6-browser"
+    ]
 }
-
