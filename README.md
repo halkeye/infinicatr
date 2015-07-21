@@ -1,7 +1,15 @@
-# InfiniCatr Web App [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+# InfiniCatr Web App
 
-Open Web App that shows a "neverending" stream of cat pictures. 
+Open Web App that shows a "neverending" stream of cat pictures.
+
+Uses webpack do building
+
+# Links
+
+* https://marketplace.firefox.com/app/infinicatr/a
+* https://apps.gavinmogan.com/infinicatr
+* https://chrome.google.com/webstore/detail/infinicatr/dikkcbebmfnedmojoipnoonmionakoka
 
 # Usage
 
-* grunt
+* node ./server.dev.js
