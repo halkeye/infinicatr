@@ -1,15 +1,11 @@
-require('../../node_modules/loaders.css/loaders.css');
-require('../css/style.scss');
+'use strict';
 const assign = require('object-assign');
 
-(function () {
-  const size = 60;
-  /* hack to require them all */
-  require('../icons/icon-' + size + '.png');
-  require('../manifest.webapp');
-  require('../manifest.json');
-})();
-
+require('../../node_modules/loaders.css/loaders.css');
+require('../css/style.scss');
+require.context('../icons', true, /icon-.*.png/);
+require('../manifest.webapp');
+require('../manifest.json');
 require('file?name=favicon.ico!../favicon.ico');
 
 const Promise = require('bluebird');
