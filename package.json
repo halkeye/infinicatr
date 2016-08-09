@@ -67,6 +67,7 @@
     "reqwest": "^2.0.5",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
+    "surge": "^0.18.0",
     "url-loader": "^0.5.6",
     "webpack": "^1.10.1",
     "webpack-dev-server": "^1.10.1",

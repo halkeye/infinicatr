@@ -5,7 +5,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 var autoprefixer = require('autoprefixer-core');
 
-var isDev = process.env.BUILD_ENV !== 'production';
+var isDev = process.env.NODE_ENV !== 'production';
 var sourceMapParam = isDev ? '?sourceMap' : '';
 
 // Plugins to be used only for production build
