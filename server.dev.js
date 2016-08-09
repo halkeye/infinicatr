@@ -26,12 +26,9 @@ var server = new WebpackDevServer(compiler, {
   //publicPath: '/books/',
   hot: true,
   stats: { colors: true },
-  cache: false,
-  proxy: {
-    '/optik_feedback/*': 'http://tye-st.telus.com/'
-  }
+  cache: false
 });
 
-server.listen(PORT, require('os').hostname(), function () {
+server.listen(PORT, '0.0.0.0', function () {
   console.log('Listening on ' + PORT);
 });

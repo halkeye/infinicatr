@@ -1,5 +1,5 @@
 'use strict';
-const assign = require('object-assign');
+
 
 require('../../node_modules/loaders.css/loaders.css');
 require('../css/style.scss');
@@ -8,11 +8,12 @@ require('../manifest.webapp');
 require('../manifest.json');
 require('file?name=favicon.ico!../favicon.ico');
 
+const assign = require('object-assign');
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 const Promise = require('bluebird');
 const Mousetrap = require('mousetrap');
 const $ = require('jquery');
-//require('touchswipe')($);
-//window.jQuery = $;
 
 const config = {};
 config.flickr_key = '850775ffc1d6d95478d78bee0fdf4971';
@@ -24,6 +25,13 @@ config.is_chrome_app = window.chrome && window.chrome.permissions;
 config.flip_time = 3000;
 
 const $pending = $('#loading_flickr_indicator').hide();
+
+const SW = require('!!worker?service!./service-worker.js');
+SW().then((registration) => {
+  console.log('registration successful', registration); //eslint-disable-line
+}).catch((err) => {
+  console.log('registration failed', err); //eslint-disable-line
+})
 
 $(window).on('resize', function () {
   const dimension = Math.min($('.main').height(), $('.main').width());
@@ -42,35 +50,18 @@ class Infinicatr {
   }
 
   _doFlickrRequest(data) {
-    return new Promise(function (resolve, reject) {
-      const query = {
-        dataType: 'jsonp',
-        jsonp: 'jsoncallback',
-        beforeSend: () => {
-          $pending.show();
-        },
-        data: {
-          'api_key': config.flickr_key,
-          'format': 'json'
-        }
-      };
-      query.data = assign({}, query.data, data);
-      if (config.is_chrome_app) {
-        query.dataType = 'json';
-        query.jsonp = false;
-        query.data.nojsoncallback = 1;
-      }
-      $.ajax('https://api.flickr.com/services/rest/', query)
-        .always(() => {
-          $pending.hide();
-        })
-        .done((jsonData) => {
-          resolve(jsonData);
-        })
-        .fail((response, textStatus) => {
-          reject(textStatus);
-        });
+    $pending.show();
+    let url = new URL('https://api.flickr.com/services/rest/');
+    let params = assign({}, data, {
+      'api_key': config.flickr_key,
+      'format': 'json',
+      'nojsoncallback':1
     });
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+    return fetch(url)
+      .then(response => response.json())
+      .then(response => { $pending.hide(); return response });
   }
 
   getLicenses() {
@@ -111,12 +102,14 @@ class Infinicatr {
       const license = this.licenses[photo.license];
       $('footer .photo_license').attr('href', license.url)
         .text(license.name);
-    }).error(() => {
+    }).catch(() => {
       this.changePhoto();
     });
   }
 
   getMorePhotos() {
+    const onFinish = () => { this.pendingMorePhotos = null; };
+
     if (this.pendingMorePhotos) { return this.pendingMorePhotos; }
     /* Fetching photos! PLEASE WAIT! */
     this.pendingMorePhotos = this._doFlickrRequest({
@@ -137,9 +130,7 @@ class Infinicatr {
       });
       this.page++;
     })
-    .finally(() => {
-      this.pendingMorePhotos = null;
-    });
+    .then(onFinish, onFinish);
     return this.pendingMorePhotos;
   }
   loadImage(uri) {

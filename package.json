@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node app-server.js",
     "test": "npm run build",
-    "dev": "./server.dev.js",
+    "dev": "node ./server.dev.js",
     "upload_bluemix": "npm run build && cf push infinicatr",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack -p",
     "build_chrome_package": "rm -rf dist && NODE_ENV=production ./node_modules/.bin/webpack -p && cd dist && zip -r ../infinicatr.zip *",
@@ -20,7 +20,9 @@
     "autoprefixer-core": "^6.0.1",
     "bluebird": "^3.4.1",
     "cfenv": "1.0.x",
+    "es6-promise": "^3.2.1",
     "express": "4.14.0",
+    "isomorphic-fetch": "^2.2.1",
     "object-assign": "^4.1.0"
   },
   "devDependencies": {
@@ -65,9 +67,9 @@
     "reqwest": "^2.0.5",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
-    "touchswipe": "^1.6.0",
     "url-loader": "^0.5.6",
     "webpack": "^1.10.1",
-    "webpack-dev-server": "^1.10.1"
+    "webpack-dev-server": "^1.10.1",
+    "worker-loader": "git+https://github.com/unizin/worker-loader.git#b782843d6a8f8cb0318882bf5e8e701d416dcaf4"
   }
 }

@@ -1,5 +1,5 @@
 'use strict';
-//var webpack = require('webpack');
+var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
@@ -42,7 +42,9 @@ var scssLoaders = [
 ];
 
 var config = {
-  entry: [
+  entry: {
+    'chrome-background': [ 'js/chrome-background.js' ],
+    main: [
       /*'consolelog',
       'es5-shim',
       'es5-shim/es5-sham',
@@ -50,9 +52,9 @@ var config = {
       'es6-shim/es6-sham',
       'json3',
       'html5shiv/dist/html5shiv-printshiv.js',*/
-     'js/chrome-background.js',
      './app/js/app.js'
-  ],
+    ]
+  },
   module: {
     preLoaders: [
       {
@@ -102,7 +104,7 @@ var config = {
     ]
   },
   output: {
-    filename: process.env.NODE_ENV === 'production' ?  'js/[name]-[hash].js' : 'js/[name].js',
+    filename: !isDev ?  'js/[name]-[hash].js' : 'js/[name].js',
     path: path.join(__dirname, './dist'),
     publicPath: './'
   },
@@ -112,7 +114,7 @@ var config = {
     new HtmlWebpackPlugin({ inject: true, template: './app/index.html' })//,
     //new webpack.optimize.UglifyJsPlugin(),
     //new webpack.DefinePlugin({GA_TRACKING_CODE: JSON.stringify('UA-89920-12')})
-  ],
+  ].concat(prodPlugins),
   resolve: {
     extensions: ['', '.jsx', '.js', '.sass', '.scss', '.css'],
     modulesDirectories: ['app', 'node_modules']

@@ -13,6 +13,7 @@
     "90":  "/icons/icon-90.png",
     "120": "/icons/icon-120.png",
     "128": "/icons/icon-128.png",
+    "144": "/icons/icon-144.png",
     "256": "/icons/icon-256.png",
     "512": "/icons/icon-512.png"
   },
@@ -21,5 +22,6 @@
       "scripts": ["js/chrome-background.js"]
     }
   },
+  "start_url": "/index.html",
   "display": "standalone"
 }
