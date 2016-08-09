@@ -23,7 +23,8 @@
     "es6-promise": "^3.2.1",
     "express": "4.14.0",
     "isomorphic-fetch": "^2.2.1",
-    "object-assign": "^4.1.0"
+    "object-assign": "^4.1.0",
+    "url-search-params": "^0.5.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",

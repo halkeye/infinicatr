@@ -8,6 +8,7 @@ require('../manifest.webapp');
 require('../manifest.json');
 require('file?name=favicon.ico!../favicon.ico');
 
+const URLSearchParams = require('url-search-params');
 const assign = require('object-assign');
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
@@ -26,12 +27,14 @@ config.flip_time = 3000;
 
 const $pending = $('#loading_flickr_indicator').hide();
 
-const SW = require('!!worker?service!./service-worker.js');
-SW().then((registration) => {
-  console.log('registration successful', registration); //eslint-disable-line
-}).catch((err) => {
-  console.log('registration failed', err); //eslint-disable-line
-})
+if ('serviceWorker' in navigator) {
+  const SW = require('!!worker?service!./service-worker.js');
+  SW().then((registration) => {
+    console.log('registration successful', registration); //eslint-disable-line
+  }).catch((err) => {
+    console.log('registration failed', err); //eslint-disable-line
+  })
+}
 
 $(window).on('resize', function () {
   const dimension = Math.min($('.main').height(), $('.main').width());
@@ -57,7 +60,10 @@ class Infinicatr {
       'format': 'json',
       'nojsoncallback':1
     });
-    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+    var searchParams = new URLSearchParams("");
+
+    Object.keys(params).forEach(key => searchParams.append(key, params[key]))
+    url.search = searchParams.toString();
 
     return fetch(url)
       .then(response => response.json())
