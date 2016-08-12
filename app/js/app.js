@@ -33,7 +33,7 @@ if ('serviceWorker' in navigator) {
     console.log('registration successful', registration); //eslint-disable-line
   }).catch((err) => {
     console.log('registration failed', err); //eslint-disable-line
-  })
+  });
 }
 
 $(window).on('resize', function () {
@@ -45,32 +45,32 @@ $(window).on('resize', function () {
 }).trigger('resize');
 
 class Infinicatr {
-  constructor() {
+  constructor () {
     this.page = 1;
     this.timeout = 0;
     this.pendingMorePhotos = null;
     this.photos = [];
   }
 
-  _doFlickrRequest(data) {
+  _doFlickrRequest (data) {
     $pending.show();
     let url = new URL('https://api.flickr.com/services/rest/');
     let params = assign({}, data, {
       'api_key': config.flickr_key,
       'format': 'json',
-      'nojsoncallback':1
+      'nojsoncallback': 1
     });
-    var searchParams = new URLSearchParams("");
+    var searchParams = new URLSearchParams('');
 
-    Object.keys(params).forEach(key => searchParams.append(key, params[key]))
+    Object.keys(params).forEach(key => searchParams.append(key, params[key]));
     url.search = searchParams.toString();
 
     return fetch(url)
       .then(response => response.json())
-      .then(response => { $pending.hide(); return response });
+      .then(response => { $pending.hide(); return response; });
   }
 
-  getLicenses() {
+  getLicenses () {
     return this._doFlickrRequest({
       'method': 'flickr.photos.licenses.getInfo'
     }).then((licenses) => {
@@ -81,7 +81,7 @@ class Infinicatr {
     });
   }
 
-  changePhoto() {
+  changePhoto () {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
@@ -113,7 +113,7 @@ class Infinicatr {
     });
   }
 
-  getMorePhotos() {
+  getMorePhotos () {
     const onFinish = () => { this.pendingMorePhotos = null; };
 
     if (this.pendingMorePhotos) { return this.pendingMorePhotos; }
@@ -139,7 +139,8 @@ class Infinicatr {
     .then(onFinish, onFinish);
     return this.pendingMorePhotos;
   }
-  loadImage(uri) {
+
+  loadImage (uri) {
     return new Promise(function (resolve, reject) {
       if (config.is_chrome_app) {
         const xhr = new XMLHttpRequest();

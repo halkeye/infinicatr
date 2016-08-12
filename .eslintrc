@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": [ "semistandard", "eslint:recommended" ],
+  "extends": [ "eslint:recommended", "semistandard" ],
   "rules": {
     "no-unused-vars": [2, { "vars": "all", "args": "after-used" }]
   },
