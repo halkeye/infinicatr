@@ -1,6 +1,5 @@
 'use strict';
 
-
 require('../../node_modules/loaders.css/loaders.css');
 require('../css/style.scss');
 require.context('../icons', true, /icon-.*.png/);
