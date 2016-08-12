@@ -21,7 +21,11 @@ self.addEventListener('fetch', function (event) {
           // cache all the images but return the original request
           return clonedResponse.json().then(function (json) {
             if ('photos' in json && 'photo' in json.photos) {
-              cache.addAll(json.photos.photo.map(function (photo) { return photo.url_z; }));
+              cache.addAll(
+                json.photos.photo
+                .map(function (photo) { return photo.url_z; })
+                .filter(function (photo) { return photo; })
+              );
             }
             var options = {
               status: 200,
