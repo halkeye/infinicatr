@@ -98,7 +98,7 @@ var config = {
         loader: 'file-loader?name=js/[name].[ext]'
       },
       {
-        test: /icons\/icon-(32|60|90|120|128|256|512)\.png/,
+        test: /icons\/icon-(\d+)\.png/,
         loader: 'file-loader?name=icons/[name].[ext]'
       }
     ]
