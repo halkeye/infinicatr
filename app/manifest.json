@@ -8,17 +8,17 @@
     "https://*.staticflickr.com/*",
     "https://api.flickr.com/services/rest/"
   ],
-  "icons": {
-    "32":  "/icons/icon-32.png",
-    "60":  "/icons/icon-60.png",
-    "90":  "/icons/icon-90.png",
-    "120": "/icons/icon-120.png",
-    "128": "/icons/icon-128.png",
-    "144": "/icons/icon-144.png",
-    "152": "/icons/icon-152.png",
-    "256": "/icons/icon-256.png",
-    "512": "/icons/icon-512.png"
-  },
+  "icons": [
+    { "src": "icons/icon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "icons/icon-60.png", "sizes": "60x60", "type": "image/png" },
+    { "src": "icons/icon-90.png", "sizes": "90x90", "type": "image/png" },
+    { "src": "icons/icon-120.png", "sizes": "120x120", "type": "image/png" },
+    { "src": "icons/icon-128.png", "sizes": "128x128", "type": "image/png" },
+    { "src": "icons/icon-144.png", "sizes": "144x144", "type": "image/png" },
+    { "src": "icons/icon-152.png", "sizes": "152x152", "type": "image/png" },
+    { "src": "icons/icon-256.png", "sizes": "256x256", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
   "app": {
     "background": {
       "scripts": ["js/chrome-background.js"]
