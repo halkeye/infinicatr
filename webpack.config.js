@@ -17,17 +17,17 @@ var prodPlugins = isDev
     new webpack.optimize.DedupePlugin()
   ];
 
-function NoErrorsPluginBeep() { }
-NoErrorsPluginBeep.prototype.apply = function(compiler) {
-  compiler.plugin('should-emit', function(compilation) {
-    if(compilation.errors.length > 0) {
+function NoErrorsPluginBeep () { }
+NoErrorsPluginBeep.prototype.apply = function (compiler) {
+  compiler.plugin('should-emit', function (compilation) {
+    if (compilation.errors.length > 0) {
       process.stdout.write('Error \x07');
       return false;
     }
   });
-  compiler.plugin('compilation', function(compilation) {
-    compilation.plugin('should-record', function() {
-      if(compilation.errors.length > 0) {
+  compiler.plugin('compilation', function (compilation) {
+    compilation.plugin('should-record', function () {
+      if (compilation.errors.length > 0) {
         process.stdout.write('Error \x07');
         return false;
       }
@@ -45,22 +45,24 @@ var config = {
   entry: {
     'chrome-background': [ 'js/chrome-background.js' ],
     main: [
-      /*'consolelog',
+      /*
+      'consolelog',
       'es5-shim',
       'es5-shim/es5-sham',
       'es6-shim',
       'es6-shim/es6-sham',
       'json3',
-      'html5shiv/dist/html5shiv-printshiv.js',*/
-     './app/js/app.js'
+      'html5shiv/dist/html5shiv-printshiv.js',
+      */
+      './app/js/app.js'
     ]
   },
   module: {
     preLoaders: [
       {
-          test: /\.jsx?$/,
-          exclude: /node_modules|bower_components/,
-          loader: 'eslint-loader'
+        test: /\.jsx?$/,
+        exclude: /node_modules|bower_components/,
+        loader: 'eslint-loader'
       }
     ],
     loaders: [
@@ -74,8 +76,8 @@ var config = {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(
           'style-loader',
-          'css-loader?importLoaders=1' + sourceMapParam.replace('?', '&')
-          + '!postcss-loader' + sourceMapParam
+          'css-loader?importLoaders=1' + sourceMapParam.replace('?', '&') +
+          '!postcss-loader' + sourceMapParam
         )
       },
       {
@@ -104,16 +106,16 @@ var config = {
     ]
   },
   output: {
-    filename: !isDev ?  'js/[name]-[hash].js' : 'js/[name].js',
+    filename: !isDev ? 'js/[name]-[hash].js' : 'js/[name].js',
     path: path.join(__dirname, './dist'),
     publicPath: './'
   },
   plugins: [
     new NoErrorsPluginBeep(),
     new ExtractTextPlugin(process.env.NODE_ENV === 'production' ? 'styles/[name]-[hash].css' : 'styles/[name].css'),
-    new HtmlWebpackPlugin({ inject: true, template: './app/index.html' })//,
-    //new webpack.optimize.UglifyJsPlugin(),
-    //new webpack.DefinePlugin({GA_TRACKING_CODE: JSON.stringify('UA-89920-12')})
+    new HtmlWebpackPlugin({ inject: true, template: './app/index.html' }) // ,
+    // new webpack.optimize.UglifyJsPlugin(),
+    // new webpack.DefinePlugin({GA_TRACKING_CODE: JSON.stringify('UA-89920-12')})
   ].concat(prodPlugins),
   resolve: {
     extensions: ['', '.jsx', '.js', '.sass', '.scss', '.css'],

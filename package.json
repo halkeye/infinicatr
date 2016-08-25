@@ -4,7 +4,8 @@
   "description": "Endless Supply of cat pictures (as provided by flickr)",
   "scripts": {
     "start": "node app-server.js",
-    "test": "npm run build",
+    "lint": "eslint app server.dev.js webpack.config.js",
+    "test": "npm run lint; npm run build",
     "dev": "node ./server.dev.js",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack -p",
     "build_chrome_package": "rm -rf dist && NODE_ENV=production ./node_modules/.bin/webpack -p && cd dist && zip -r ../infinicatr.zip *",
