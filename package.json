@@ -63,7 +63,7 @@
     "mustache-loader": "^0.3.0",
     "node-libs-browser": "^1.0.0",
     "node-sass": "^3.2.0",
-    "postcss-loader": "^0.10.0",
+    "postcss-loader": "^0.11.0",
     "raw-loader": "^0.5.1",
     "require-dot-file": "^0.4.0",
     "reqwest": "^2.0.5",
