@@ -70,7 +70,7 @@
     "style-loader": "^0.13.1",
     "surge": "^0.18.0",
     "url-loader": "^0.5.6",
-    "webpack": "^1.10.1",
+    "webpack": "^2.2.1",
     "webpack-dev-server": "^1.10.1",
     "worker-loader": "git+https://github.com/unizin/worker-loader.git#b782843d6a8f8cb0318882bf5e8e701d416dcaf4"
   }
