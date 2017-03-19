@@ -57,7 +57,7 @@
     "json3": "^3.3.2",
     "loader-utils": "^1.0.0",
     "loaders.css": "^0.1.1",
-    "map-stream": "0.0.6",
+    "map-stream": "0.0.7",
     "mousetrap": "^1.5.3",
     "mustache-loader": "^0.4.0",
     "node-libs-browser": "^2.0.0",
