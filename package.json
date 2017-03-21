@@ -67,7 +67,7 @@
     "require-dot-file": "^0.4.0",
     "reqwest": "^2.0.5",
     "sass-loader": "^6.0.0",
-    "style-loader": "^0.14.0",
+    "style-loader": "^0.15.0",
     "surge": "^0.19.0",
     "url-loader": "^0.5.6",
     "webpack": "^1.10.1",
