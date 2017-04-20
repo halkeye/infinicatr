@@ -41,7 +41,7 @@
     "es6-shim": "^0.35.1",
     "eslint": "^3.2.2",
     "eslint-config-defaults": "^9.0.0",
-    "eslint-config-semistandard": "^8.0.0",
+    "eslint-config-semistandard": "^11.0.0",
     "eslint-config-standard": "^10.0.0",
     "eslint-loader": "^1.5.0",
     "eslint-plugin-filenames": "^1.1.0",
