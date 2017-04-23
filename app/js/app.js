@@ -1,15 +1,13 @@
 'use strict';
 
-require('../../node_modules/loaders.css/loaders.css');
+require('loaders.css/loaders.css');
 require('../css/style.scss');
 require.context('../icons', true, /icon-.*.png/);
 require('../manifest.json');
 
 const URLSearchParams = require('url-search-params');
 const assign = require('object-assign');
-require('es6-promise').polyfill();
 require('isomorphic-fetch');
-const Promise = require('bluebird');
 const Mousetrap = require('mousetrap');
 const $ = require('jquery');
 
