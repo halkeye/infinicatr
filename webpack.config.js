@@ -12,7 +12,7 @@ module.exports = function (env) {
   const nodeEnv = env && env.prod ? 'production' : 'development';
   const isProd = nodeEnv === 'production';
   const entry = {
-      js: 'js/app.js'
+    js: 'js/app.js'
   };
 
   const plugins = [
@@ -193,8 +193,6 @@ module.exports = function (env) {
     }
   };
 };
-
-
 
 /*
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff' },

@@ -23,7 +23,7 @@ config.flip_time = 3000;
 const $pending = $('#loading_flickr_indicator').hide();
 
 if ('serviceWorker' in navigator) {
-  const SW = require('!!file-loader?name=sw.js!./service-worker.js');
+  const SW = require('!!file-loader?name=sw.js!./service-worker.js'); //eslint-disable-line
   navigator.serviceWorker.register(SW)
   .then(registration => {
     console.log('registration successful', registration); //eslint-disable-line
@@ -146,7 +146,7 @@ class Infinicatr {
               const url = window.URL || window.webkitURL;
               resolve(url.createObjectURL(this.response));
             } else {
-              reject();
+              reject(new Error());
             }
           }
         };
