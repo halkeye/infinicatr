@@ -1,93 +1,202 @@
 'use strict';
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var path = require('path');
-var autoprefixer = require('autoprefixer-core');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var isDev = process.env.NODE_ENV !== 'production';
-var sourceMapParam = isDev ? '?sourceMap' : '';
+const path = require('path');
 
-// Plugins to be used only for production build
-var prodPlugins = isDev
-  ? []
-  : [
-    new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin()
+const sourcePath = path.join(__dirname, './app');
+const distPath = path.join(__dirname, './dist');
+
+module.exports = function (env) {
+  const nodeEnv = env && env.prod ? 'production' : 'development';
+  const isProd = nodeEnv === 'production';
+  const entry = {
+      js: 'js/app.js'
+  };
+
+  const plugins = [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: ({ resource }) => /node_modules/.test(resource)
+    }),
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: nodeEnv
+    }),
+    new webpack.NamedModulesPlugin(),
+    new HtmlWebpackPlugin({
+      template: '!!html-loader!./app/index.html',
+      favicon: 'favicon.ico'
+    }),
+    new ExtractTextPlugin({
+      disable: !isProd,
+      filename: '[name].[contenthash].css',
+      allChunks: true
+    })
   ];
 
-function NoErrorsPluginBeep () { }
-NoErrorsPluginBeep.prototype.apply = function (compiler) {
-  compiler.plugin('should-emit', function (compilation) {
-    if (compilation.errors.length > 0) {
-      process.stdout.write('Error \x07');
-      return false;
-    }
-  });
-  compiler.plugin('compilation', function (compilation) {
-    compilation.plugin('should-record', function () {
-      if (compilation.errors.length > 0) {
-        process.stdout.write('Error \x07');
-        return false;
+  if (isProd) {
+    plugins.push(
+      new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false,
+          screw_ie8: true,
+          conditionals: true,
+          unused: true,
+          comparisons: true,
+          sequences: true,
+          dead_code: true,
+          evaluate: true,
+          if_return: true,
+          join_vars: true
+        },
+        output: {
+          comments: false
+        }
+      })
+    );
+  } else {
+    plugins.push(
+      new webpack.HotModuleReplacementPlugin()
+    );
+  }
+
+  return {
+    devtool: isProd ? 'source-map' : 'eval',
+    context: sourcePath,
+    entry: entry,
+    output: {
+      path: distPath,
+      filename: !isProd ? '[name].bundle.js' : '[name].[chunkhash].bundle.js'
+    },
+    module: {
+      rules: [
+        {
+          test: /manifest.json$/,
+          loader: 'file-loader?name=manifest.json!web-app-manifest-loader'
+        },
+        {
+          test: /\.scss$/,
+          exclude: /node_modules/,
+          use: ExtractTextPlugin.extract({
+            use: ['css-loader', 'sass-loader'],
+            fallback: 'style-loader'
+          })
+        },
+        {
+          test: /\.(html)$/,
+          exclude: /node_modules/,
+          use: ['file-loader']
+        },
+        {
+          test: /\.(jpe?g|png|gif|svg)$/i,
+          loaders: [
+            'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+            {
+              loader: 'image-webpack-loader',
+              options: {
+                gifsicle: {
+                  interlaced: false
+                },
+                optipng: {
+                  optimizationLevel: 7
+                },
+                pngquant: {
+                  quality: '65-90',
+                  speed: 4
+                },
+                mozjpeg: {
+                  progressive: true,
+                  quality: 65
+                }
+              }
+            }
+          ]
+        },
+        {
+          test: /\.mustache$/,
+          loader: 'mustache-loader?minify'
+        },
+        {
+          test: /\.css$/,
+          use: ExtractTextPlugin.extract({
+            use: ['css-loader?url=false'],
+            fallback: 'style-loader'
+          })
+        },
+        {
+          test: /iframe\.html/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'file-loader',
+            query: {
+              name: '[name].[ext]'
+            }
+          }
+        },
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          use: [
+            'babel-loader'
+          ]
+        }
+      ]
+    },
+    resolve: {
+      extensions: ['.js', '.jsx', '.scss'],
+      modules: [
+        path.resolve(__dirname, 'node_modules'),
+        sourcePath
+      ]
+    },
+
+    plugins,
+
+    performance: isProd && {
+      maxAssetSize: 100,
+      maxEntrypointSize: 300,
+      hints: 'warning'
+    },
+
+    stats: {
+      colors: {
+        green: '\u001b[32m'
       }
-    });
-  });
+    },
+
+    devServer: {
+      contentBase: './src',
+      historyApiFallback: true,
+      port: 3000,
+      compress: isProd,
+      inline: !isProd,
+      hot: !isProd,
+      stats: {
+        assets: true,
+        children: false,
+        chunks: false,
+        hash: false,
+        modules: false,
+        publicPath: false,
+        timings: true,
+        version: false,
+        warnings: true,
+        colors: {
+          green: '\u001b[32m'
+        }
+      }
+    }
+  };
 };
 
-var scssLoaders = [
-  'css-loader',
-  'autoprefixer-loader?browsers=last 2 version',
-  'sass-loader?includePaths[]=' + path.resolve(__dirname, './app') + '&includePaths[]=' + path.resolve(__dirname, './node_modules')
-];
 
-var config = {
-  entry: {
-    'chrome-background': [ 'js/chrome-background.js' ],
-    main: [
-      /*
-      'consolelog',
-      'es5-shim',
-      'es5-shim/es5-sham',
-      'es6-shim',
-      'es6-shim/es6-sham',
-      'json3',
-      'html5shiv/dist/html5shiv-printshiv.js',
-      */
-      './app/js/app.js'
-    ]
-  },
-  module: {
-    preLoaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules|bower_components/,
-        loader: 'eslint-loader'
-      }
-    ],
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loaders: ['babel-loader']
-      },
-      // Copy the files required for a Firefox OS app, preserving their names
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader?importLoaders=1' + sourceMapParam.replace('?', '&') +
-          '!postcss-loader' + sourceMapParam
-        )
-      },
-      {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader', scssLoaders.join('!'))
-      },
-      {
-        test: /\.mustache$/,
-        loader: 'mustache?minify'
-      },
+
+/*
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff' },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
       { test: /\.(gif|jpg|jpeg|png)$/, loader: 'file-loader' },
@@ -126,5 +235,4 @@ var config = {
     autoprefixer({browsers: ['Firefox 32']})
   ]
 };
-
-module.exports = config;
+*/

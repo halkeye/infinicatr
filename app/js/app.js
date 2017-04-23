@@ -3,9 +3,7 @@
 require('../../node_modules/loaders.css/loaders.css');
 require('../css/style.scss');
 require.context('../icons', true, /icon-.*.png/);
-require('../manifest.webapp');
 require('../manifest.json');
-require('file?name=favicon.ico!../favicon.ico');
 
 const URLSearchParams = require('url-search-params');
 const assign = require('object-assign');
@@ -27,10 +25,11 @@ config.flip_time = 3000;
 const $pending = $('#loading_flickr_indicator').hide();
 
 if ('serviceWorker' in navigator) {
-  const SW = require('!!worker?service!./service-worker.js');
-  SW().then((registration) => {
+  const SW = require('!!file-loader?name=sw.js!./service-worker.js');
+  navigator.serviceWorker.register(SW)
+  .then(registration => {
     console.log('registration successful', registration); //eslint-disable-line
-  }).catch((err) => {
+  }).catch(err => {
     console.log('registration failed', err); //eslint-disable-line
   });
 }
