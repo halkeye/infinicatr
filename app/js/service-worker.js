@@ -9,6 +9,9 @@ self.addEventListener('install', function (event) {
 
 self.addEventListener('fetch', function (event) {
   var requestURL = new URL(event.request.url);
+  if (!(requestURL.protocol in ['http:', 'https:'])) {
+    return fetch(event.request);
+  }
 
   if (requestURL.host.includes('flickr.com') && requestURL.pathname.includes('/services/rest/')) {
     /* if flickr and rest apis, then hit network, then process && cache, but on failure, read from cache */
