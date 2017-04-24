@@ -23,9 +23,8 @@ module.exports = function (env) {
     new webpack.EnvironmentPlugin({
       NODE_ENV: nodeEnv
     }),
-    new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({
-      template: '!!html-loader!./app/index.html',
+      template: './index.html',
       favicon: 'favicon.ico'
     }),
     new ExtractTextPlugin({
@@ -90,10 +89,16 @@ module.exports = function (env) {
         {
           test: /\.(html)$/,
           exclude: /node_modules/,
-          use: ['file-loader']
+          use: [{
+            loader: 'html-loader',
+            options: {
+              minimize: true,
+              attrs: ['img:src', 'link:href', 'link:href']
+            }
+          }]
         },
         {
-          test: /\.(jpe?g|png|gif|svg)$/i,
+          test: /\.(jpe?g|png|gif|svg|ico)$/i,
           loaders: [
             'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
             {
