@@ -9,7 +9,7 @@ const URLSearchParams = require('url-search-params');
 const assign = require('object-assign');
 require('isomorphic-fetch');
 const Mousetrap = require('mousetrap');
-const $ = require('jquery');
+const footerTemplate = require('templates/footer_template.mustache');
 
 const config = {};
 config.flickr_key = '850775ffc1d6d95478d78bee0fdf4971';
@@ -20,17 +20,37 @@ config.max_photos = config.page_size * 3;
 config.is_chrome_app = window.chrome && window.chrome.permissions;
 config.flip_time = 3000;
 
-function hide (elm) {
-  elm.style.display = 'none';
-  return elm;
+function hide (el) {
+  el.style.display = 'none';
 }
 
-function show (elm) {
-  elm.style.display = '';
-  return elm;
+function show (el) {
+  el.style.display = '';
 }
 
-const pendingElm = hide(document.getElementById('loading_flickr_indicator'));
+function matches (el, selector) {
+  return (el.matches || el.matchesSelector || el.msMatchesSelector || el.mozMatchesSelector || el.webkitMatchesSelector || el.oMatchesSelector).call(el, selector);
+}
+
+function toggleClass (el, className) {
+  if (el.classList) {
+    el.classList.toggle(className);
+  } else {
+    var classes = el.className.split(' ');
+    var existingIndex = classes.indexOf(className);
+
+    if (existingIndex >= 0) {
+      classes.splice(existingIndex, 1);
+    } else {
+      classes.push(className);
+    }
+
+    el.className = classes.join(' ');
+  }
+}
+
+const pendingElm = document.getElementById('loading_flickr_indicator');
+hide(pendingElm);
 
 if ('serviceWorker' in navigator) {
   const SW = require('!!file-loader?name=sw.js!./service-worker.js'); //eslint-disable-line
@@ -42,13 +62,14 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-$(window).on('resize', function () {
-  const dimension = Math.min($('.main').height(), $('.main').width());
-  $('.flipper').css({
-    height: dimension,
-    width: dimension
-  });
-}).trigger('resize');
+function resizeHandler () {
+  const mainElm = document.getElementById('main');
+  const dimension = Math.min(mainElm.offsetHeight, mainElm.offsetWidth);
+  document.getElementById('flipper').style.height = dimension + 'px';
+  document.getElementById('flipper').style.width = dimension + 'px';
+}
+window.addEventListener('resize', resizeHandler);
+resizeHandler();
 
 class Infinicatr {
   constructor () {
@@ -93,8 +114,8 @@ class Infinicatr {
     }
     this.timeout = 0;
 
-    const flipper = $('.flipper');
-    const side = flipper.is('.flipped') ? $('.front') : $('.back');
+    const flipper = document.getElementById('flipper');
+    const side = matches(flipper, '.flipped') ? document.getElementById('front') : document.getElementById('back');
     const photo = this.photos.pop();
     if (this.photos.length <= config.pending_photos_threshold) {
       this.getMorePhotos();
@@ -102,18 +123,18 @@ class Infinicatr {
     if (!photo) { return; }
 
     this.loadImage(photo.url_z).then((uri) => {
-      side.css('background-image', 'url(' + uri + ')');
-      flipper.toggleClass('flipped');
+      side.style.backgroundImage = 'url(' + uri + ')';
+      toggleClass(flipper, 'flipped');
       this.timeout = setTimeout(this.changePhoto.bind(this), config.flip_time);
-      $('footer .photo_title')
-        .attr('href', 'https://www.flickr.com/photos/' + photo.owner + '/' + photo.id)
-        .text(photo.title);
-      $('footer .photo_author')
-        .attr('href', 'https://www.flickr.com/people/' + photo.owner)
-        .text(photo.ownername);
       const license = this.licenses[photo.license];
-      $('footer .photo_license').attr('href', license.url)
-        .text(license.name);
+      document.getElementsByTagName('footer')[0].innerHTML = footerTemplate({
+        photo_link: 'https://www.flickr.com/photos/' + photo.owner + '/' + photo.id,
+        title: photo.title,
+        author: photo.ownername,
+        author_link: 'https://www.flickr.com/people/' + photo.owner,
+        license_url: license.url,
+        license_name: license.name
+      });
     }).catch(() => {
       this.changePhoto();
     });
