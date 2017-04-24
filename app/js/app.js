@@ -20,7 +20,17 @@ config.max_photos = config.page_size * 3;
 config.is_chrome_app = window.chrome && window.chrome.permissions;
 config.flip_time = 3000;
 
-const $pending = $('#loading_flickr_indicator').hide();
+function hide (elm) {
+  elm.style.display = 'none';
+  return elm;
+}
+
+function show (elm) {
+  elm.style.display = '';
+  return elm;
+}
+
+const pendingElm = hide(document.getElementById('loading_flickr_indicator'));
 
 if ('serviceWorker' in navigator) {
   const SW = require('!!file-loader?name=sw.js!./service-worker.js'); //eslint-disable-line
@@ -49,7 +59,7 @@ class Infinicatr {
   }
 
   _doFlickrRequest (data) {
-    $pending.show();
+    show(pendingElm);
     let url = new URL('https://api.flickr.com/services/rest/');
     let params = assign({}, data, {
       'api_key': config.flickr_key,
@@ -63,7 +73,7 @@ class Infinicatr {
 
     return fetch(url)
       .then(response => response.json())
-      .then(response => { $pending.hide(); return response; });
+      .then(response => { hide(pendingElm); return response; });
   }
 
   getLicenses () {
