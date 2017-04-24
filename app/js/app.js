@@ -62,15 +62,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-function resizeHandler () {
-  const mainElm = document.getElementById('main');
-  const dimension = Math.min(mainElm.offsetHeight, mainElm.offsetWidth);
-  document.getElementById('flipper').style.height = dimension + 'px';
-  document.getElementById('flipper').style.width = dimension + 'px';
-}
-window.addEventListener('resize', resizeHandler);
-resizeHandler();
-
 class Infinicatr {
   constructor () {
     this.page = 1;
