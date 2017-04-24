@@ -13,7 +13,7 @@
     "postversion": "git push --tags && conventional-github-releaser -p angular",
     "build_chrome_package": "rm -rf dist && NODE_ENV=production ./node_modules/.bin/webpack -p && cd dist && zip -r ../infinicatr.zip *",
     "deploy:surge": "rm -rf dist && npm run build && surge -p dist -d infinicatr.surge.sh",
-    "deploy:apps": "rm -rf dist && NODE_ENV=production ./node_modules/.bin/webpack -p && cd dist && rsync -vazt --delete * rib:/home/apache/vhosts/gavinmogan.com/apps/infinicatr/"
+    "deploy:apps": "rm -rf dist && NODE_ENV=production ./node_modules/.bin/webpack -p && cd dist && rsync -vazt --delete . rib:/home/apache/vhosts/gavinmogan.com/apps/infinicatr/"
   },
   "repository": {
     "type": "git",
