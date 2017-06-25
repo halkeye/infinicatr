@@ -17,45 +17,45 @@ self.addEventListener('fetch', function (event) {
     /* if flickr and rest apis, then hit network, then process && cache, but on failure, read from cache */
     return event.respondWith(
       fetch(event.request)
-      .then(function (response) {
-        return caches.open('infinicatr-v1').then(function (cache) {
-          const clonedResponse = response.clone();
-          cache.put(event.request, response);
-          // cache all the images but return the original request
-          return clonedResponse.json().then(function (json) {
-            if ('photos' in json && 'photo' in json.photos) {
-              cache.addAll(
-                json.photos.photo
-                .map(function (photo) { return photo.url_z; })
-                .filter(function (photo) { return photo; })
-              );
-            }
-            var options = {
-              status: 200,
-              headers: new Headers({ 'content-type': 'application/json' })
-            };
-            return new Response(JSON.stringify(json), options);
+        .then(function (response) {
+          return caches.open('infinicatr-v1').then(function (cache) {
+            const clonedResponse = response.clone();
+            cache.put(event.request, response);
+            // cache all the images but return the original request
+            return clonedResponse.json().then(function (json) {
+              if ('photos' in json && 'photo' in json.photos) {
+                cache.addAll(
+                  json.photos.photo
+                    .map(function (photo) { return photo.url_z; })
+                    .filter(function (photo) { return photo; })
+                );
+              }
+              var options = {
+                status: 200,
+                headers: new Headers({ 'content-type': 'application/json' })
+              };
+              return new Response(JSON.stringify(json), options);
+            });
           });
-        });
-      })
-      .catch(function () {
-        return caches.match(event.request);
-      })
+        })
+        .catch(function () {
+          return caches.match(event.request);
+        })
     );
   } else {
     /* Otherwise, hit network, on failure, load from cache */
     return event.respondWith(
       fetch(event.request)
-      .then(function (response) {
-        return caches.open('infinicatr-v1').then(function (cache) {
-          const clonedResponse = response.clone();
-          cache.put(event.request, response);
-          return clonedResponse;
-        });
-      })
-      .catch(function () {
-        return caches.match(event.request);
-      })
+        .then(function (response) {
+          return caches.open('infinicatr-v1').then(function (cache) {
+            const clonedResponse = response.clone();
+            cache.put(event.request, response);
+            return clonedResponse;
+          });
+        })
+        .catch(function () {
+          return caches.match(event.request);
+        })
     );
   }
 });

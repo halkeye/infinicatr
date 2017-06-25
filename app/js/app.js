@@ -55,11 +55,11 @@ hide(pendingElm);
 if ('serviceWorker' in navigator) {
   const SW = require('!!file-loader?name=sw.js!./service-worker.js'); //eslint-disable-line
   navigator.serviceWorker.register(SW)
-  .then(registration => {
+    .then(registration => {
     console.log('registration successful', registration); //eslint-disable-line
-  }).catch(err => {
+    }).catch(err => {
     console.log('registration failed', err); //eslint-disable-line
-  });
+    });
 }
 
 class Infinicatr {
@@ -147,14 +147,14 @@ class Infinicatr {
       'safe_search': '1', // 1 = safe search
       'tags': 'cats'
     })
-    .then((data) => {
-      data.photos.photo.forEach((photo) => {
-        if (!photo.url_z) { return; }
-        this.photos.push(photo);
-      });
-      this.page++;
-    })
-    .then(onFinish, onFinish);
+      .then((data) => {
+        data.photos.photo.forEach((photo) => {
+          if (!photo.url_z) { return; }
+          this.photos.push(photo);
+        });
+        this.page++;
+      })
+      .then(onFinish, onFinish);
     return this.pendingMorePhotos;
   }
 
