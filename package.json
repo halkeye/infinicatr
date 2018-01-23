@@ -22,7 +22,7 @@
   "author": "Gavin Mogan <gavin@kodekoan.com>",
   "dependencies": {
     "babel-runtime": "^6.23.0",
-    "es6-promise": "^4.0.3",
+    "es6-promise": "^4.2.4",
     "isomorphic-fetch": "^2.2.1",
     "object-assign": "^4.1.0",
     "url-search-params": "^0.10.0"
