@@ -65,7 +65,7 @@
     "node-sass": "^4.7.2",
     "prettier-eslint-cli": "^4.7.1",
     "raw-loader": "^0.5.1",
-    "sass-loader": "^6.0.7",
+    "sass-loader": "^7.0.1",
     "style-loader": "^0.20.2",
     "surge": "^0.20.1",
     "url-loader": "^1.0.1",
