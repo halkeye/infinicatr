@@ -74,6 +74,6 @@
     "webpack-dev-server": "^3.1.0",
     "webpack-merge": "^4.1.2",
     "webpack-pwa-manifest": "^3.6.2",
-    "worker-loader": "^1.1.1"
+    "worker-loader": "^2.0.0"
   }
 }
