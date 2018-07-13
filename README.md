@@ -1,5 +1,5 @@
 # InfiniCatr Web App
-[![Build Status](https://travis-ci.org/halkeye/infinicatr.svg?branch=master)](https://travis-ci.org/halkeye/infinicatr)
+[![Build Status](https://travis-ci.org/halkeye/infinicatr.svg?branch=master)](https://travis-ci.org/halkeye/infinicatr) [![Greenkeeper badge](https://badges.greenkeeper.io/halkeye/infinicatr.svg)](https://greenkeeper.io/)
 
 Open Web App that shows a "neverending" stream of cat pictures.
 
