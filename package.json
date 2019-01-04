@@ -6,7 +6,7 @@
   "scripts": {
     "format": "prettier-eslint \"app/**/*.js\"",
     "start": "webpack-dev-server --config webpack.dev.js --mode=development",
-    "lint": "eslint app server.dev.js webpack.config.js",
+    "lint": "eslint --ignore-path .gitignore --ext .js,.jsx .",
     "test": "npm run lint; npm run build",
     "dev": "webpack-dev-server --config webpack.dev.js --mode=development",
     "prod": "webpack-dev-server --config webpack.prod.js --mode=production",

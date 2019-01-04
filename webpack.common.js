@@ -1,7 +1,7 @@
 'use strict';
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const path = require('path');
 
@@ -23,10 +23,7 @@ module.exports = {
       {
         test: /\.scss$/,
         exclude: /node_modules/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader', 'sass-loader'
-        ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       },
       {
         test: /\.(html)$/,
@@ -72,10 +69,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader?url=false'
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader?url=false']
       },
       {
         test: /iframe\.html/,
@@ -124,7 +118,7 @@ module.exports = {
       ],
       start_url: './index.html',
       display: 'standalone'
-    }),
+    })
   ],
 
   stats: {
