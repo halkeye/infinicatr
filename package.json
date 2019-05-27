@@ -57,7 +57,7 @@
     "json-loader": "^0.5.7",
     "loader-utils": "^1.2.3",
     "loaders.css": "^0.1.2",
-    "mini-css-extract-plugin": "^0.6.0",
+    "mini-css-extract-plugin": "^0.7.0",
     "mousetrap": "^1.6.2",
     "mustache-loader": "^1.4.1",
     "node-libs-browser": "^2.1.0",
