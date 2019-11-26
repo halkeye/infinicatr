@@ -67,7 +67,7 @@
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "surge": "^0.21.0",
-    "url-loader": "^2.0.0",
+    "url-loader": "^3.0.0",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.0",
     "webpack-dev-server": "^3.1.14",
