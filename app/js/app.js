@@ -71,11 +71,11 @@ class Infinicatr {
 
   _doFlickrRequest (data) {
     show(pendingElm);
-    let url = new URL('https://api.flickr.com/services/rest/');
-    let params = assign({}, data, {
-      'api_key': config.flickr_key,
-      'format': 'json',
-      'nojsoncallback': 1
+    const url = new URL('https://api.flickr.com/services/rest/');
+    const params = assign({}, data, {
+      api_key: config.flickr_key,
+      format: 'json',
+      nojsoncallback: 1
     });
     var searchParams = new URLSearchParams('');
 
@@ -89,7 +89,7 @@ class Infinicatr {
 
   getLicenses () {
     return this._doFlickrRequest({
-      'method': 'flickr.photos.licenses.getInfo'
+      method: 'flickr.photos.licenses.getInfo'
     }).then((licenses) => {
       this.licenses = {};
       licenses.licenses.license.forEach((license) => {
@@ -136,15 +136,15 @@ class Infinicatr {
     if (this.pendingMorePhotos) { return this.pendingMorePhotos; }
     /* Fetching photos! PLEASE WAIT! */
     this.pendingMorePhotos = this._doFlickrRequest({
-      'content_type': '1', // 1 = photos only
-      'extras': ['owner_name', 'license', 'url_z', 'media'].join(','),
-      'format': 'json',
-      'method': 'flickr.photos.search',
-      'media': 'photos',
-      'page': this.page,
-      'per_page': config.page_size,
-      'safe_search': '1', // 1 = safe search
-      'tags': 'cats'
+      content_type: '1', // 1 = photos only
+      extras: ['owner_name', 'license', 'url_z', 'media'].join(','),
+      format: 'json',
+      method: 'flickr.photos.search',
+      media: 'photos',
+      page: this.page,
+      per_page: config.page_size,
+      safe_search: '1', // 1 = safe search
+      tags: 'cats'
     })
       .then((data) => {
         data.photos.photo.forEach((photo) => {
