@@ -34,21 +34,6 @@ pipeline {
         branch 'master'
       }
       environment {
-        NETLIFY = credentials('netlify-gavinmogan')
-      }
-      steps {
-        sh """
-        wget -q -O - https://github.com/netlify/netlifyctl/releases/download/v0.3.3/netlifyctl-linux-amd64-0.3.3.tar.gz | tar xvzf -
-        ./netlifyctl -y deploy -b dist -A $NETLIFY
-        """
-      }
-    }
-
-    stage('Deploy') {
-      when {
-        branch 'master'
-      }
-      environment {
         SURGE = credentials('halkeye-surge')
       }
       steps {
