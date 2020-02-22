@@ -52,12 +52,10 @@ module.exports = {
                 optimizationLevel: 7
               },
               pngquant: {
-                quality: '65-90',
                 speed: 4
               },
               mozjpeg: {
                 progressive: true,
-                quality: 65
               }
             }
           }

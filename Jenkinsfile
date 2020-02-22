@@ -1,13 +1,13 @@
 pipeline {
   agent {
     docker {
-      image 'node:9'
+      image 'node:13'
     }
   }
 
   options {
     timeout(time: 10, unit: 'MINUTES')
-      ansiColor('xterm')
+    ansiColor('xterm')
   }
 
   stages {
