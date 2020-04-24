@@ -64,7 +64,7 @@
     "node-sass": "^4.13.1",
     "raw-loader": "^4.0.1",
     "sass-loader": "^8.0.2",
-    "style-loader": "^1.1.4",
+    "style-loader": "^1.2.0",
     "surge": "^0.21.3",
     "url-loader": "^4.1.0",
     "webpack": "^4.42.1",
