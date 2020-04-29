@@ -52,7 +52,7 @@
     "extend": "^3.0.2",
     "file-loader": "^6.0.0",
     "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^4.2.0",
+    "html-webpack-plugin": "^4.2.1",
     "image-webpack-loader": "^6.0.0",
     "json-loader": "^0.5.7",
     "loader-utils": "^2.0.0",
