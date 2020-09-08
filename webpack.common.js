@@ -55,7 +55,7 @@ module.exports = {
                 speed: 4
               },
               mozjpeg: {
-                progressive: true,
+                progressive: true
               }
             }
           }
