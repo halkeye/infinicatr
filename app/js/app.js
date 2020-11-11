@@ -32,33 +32,20 @@ function matches (el, selector) {
 }
 
 function toggleClass (el, className) {
-  if (el.classList) {
-    el.classList.toggle(className);
-  } else {
-    var classes = el.className.split(' ');
-    var existingIndex = classes.indexOf(className);
-
-    if (existingIndex >= 0) {
-      classes.splice(existingIndex, 1);
-    } else {
-      classes.push(className);
-    }
-
-    el.className = classes.join(' ');
-  }
+  el.classList.toggle(className);
 }
 
 const pendingElm = document.getElementById('loading_flickr_indicator');
 hide(pendingElm);
 
 if ('serviceWorker' in navigator) {
-  const SW = require('!!file-loader?name=sw.js!./service-worker.js'); //eslint-disable-line
-  navigator.serviceWorker.register(SW)
-    .then(registration => {
-    console.log('registration successful', registration); //eslint-disable-line
-    }).catch(err => {
-    console.log('registration failed', err); //eslint-disable-line
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').then(registration => {
+      console.log('SW registered: ', registration);
+    }).catch(registrationError => {
+      console.log('SW registration failed: ', registrationError);
     });
+  });
 }
 
 class Infinicatr {
@@ -77,7 +64,7 @@ class Infinicatr {
       format: 'json',
       nojsoncallback: 1
     });
-    var searchParams = new URLSearchParams('');
+    const searchParams = new URLSearchParams('');
 
     Object.keys(params).forEach(key => searchParams.append(key, params[key]));
     url.search = searchParams.toString();

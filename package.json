@@ -5,10 +5,10 @@
   "license": "MIT",
   "scripts": {
     "format": "prettier-eslint \"app/**/*.js\"",
-    "start": "webpack-dev-server --config webpack.dev.js --mode=development",
+    "start": "webpack serve --config webpack.dev.js --mode=development",
     "lint": "eslint --ignore-path .gitignore --ext .js,.jsx .",
     "test": "npm run lint; npm run build",
-    "dev": "webpack-dev-server --config webpack.dev.js --mode=development",
+    "dev": "webpack serve --config webpack.dev.js --mode=development",
     "prod": "webpack --config webpack.prod.js --mode=production",
     "build": "webpack --config webpack.dev.js --mode=development",
     "postversion": "git push --tags && conventional-github-releaser -p angular",
@@ -26,7 +26,8 @@
     "es6-promise": "^4.2.8",
     "isomorphic-fetch": "^3.0.0",
     "object-assign": "^4.1.1",
-    "url-search-params": "^1.1.0"
+    "url-search-params": "^1.1.0",
+    "workbox-webpack-plugin": "^5.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
