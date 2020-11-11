@@ -16,6 +16,7 @@ module.exports = {
   },
   output: {
     path: distPath,
+    publicPath: '/',
     filename: '[name].bundle.js'
   },
   module: {
@@ -32,16 +33,22 @@ module.exports = {
           {
             loader: 'html-loader',
             options: {
-              minimize: true,
-              attrs: ['img:src', 'link:href', 'link:href']
+              minimize: true
             }
           }
         ]
       },
       {
         test: /\.(jpe?g|png|gif|svg|ico)$/i,
-        loaders: [
-          'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              hash: 'sha512',
+              digest: 'hex',
+              name: '[hash].[ext]'
+            }
+          },
           {
             loader: 'image-webpack-loader',
             options: {
@@ -63,7 +70,14 @@ module.exports = {
       },
       {
         test: /\.mustache$/,
-        loader: 'mustache-loader?minify'
+        use: [
+          {
+            loader: 'mustache-loader',
+            options: {
+              minify: true
+            }
+          }
+        ]
       },
       {
         test: /\.css$/,
@@ -74,7 +88,7 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'file-loader',
-          query: {
+          options: {
             name: '[name].[ext]'
           }
         }
@@ -97,8 +111,7 @@ module.exports = {
       favicon: 'favicon.ico'
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css',
-      allChunks: true
+      filename: '[name].[contenthash].css'
     }),
     new WebpackPwaManifest({
       name: 'InfiniCatr',
@@ -135,7 +148,6 @@ module.exports = {
       chunks: false,
       hash: false,
       modules: false,
-      publicPath: false,
       timings: true,
       version: false,
       warnings: true,
