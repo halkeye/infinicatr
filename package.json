@@ -62,7 +62,7 @@
     "mustache-loader": "^1.4.3",
     "node-libs-browser": "^2.2.1",
     "node-sass": "^4.14.1",
-    "raw-loader": "^4.0.1",
+    "raw-loader": "^4.0.2",
     "sass-loader": "^10.0.5",
     "style-loader": "^1.2.1",
     "surge": "^0.21.6",
