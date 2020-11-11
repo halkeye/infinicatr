@@ -24,6 +24,7 @@
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "es6-promise": "^4.2.8",
+    "favicons-webpack-plugin": "^4.2.0",
     "isomorphic-fetch": "^3.0.0",
     "object-assign": "^4.1.1",
     "url-search-params": "^1.1.0",
