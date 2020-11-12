@@ -2,7 +2,6 @@
 
 require('loaders.css/loaders.css');
 require('../css/style.scss');
-require.context('../icons', true, /icon-.*.png/);
 
 const URLSearchParams = require('url-search-params');
 const assign = require('object-assign');
