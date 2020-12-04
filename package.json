@@ -27,7 +27,7 @@
     "isomorphic-fetch": "^3.0.0",
     "object-assign": "^4.1.1",
     "url-search-params": "^1.1.0",
-    "workbox-webpack-plugin": "^5.1.4"
+    "workbox-webpack-plugin": "^6.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.8",
