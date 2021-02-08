@@ -72,7 +72,7 @@
     "webpack": "^5.21.2",
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.0",
-    "webpack-manifest-plugin": "^3.0.0-rc.0",
+    "webpack-manifest-plugin": "^3.0.0",
     "webpack-merge": "^5.4.0",
     "webpack-pwa-manifest": "^4.2.0",
     "worker-loader": "^3.0.5"
