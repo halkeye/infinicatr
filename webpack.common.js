@@ -1,5 +1,5 @@
 'use strict';
-const Manifest = require('webpack-manifest-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -109,7 +109,7 @@ module.exports = {
   },
 
   plugins: [
-    new Manifest({
+    new WebpackManifestPlugin({
       seed: {
         name: 'InfiniCatr',
         short_name: 'InfiniCatr',

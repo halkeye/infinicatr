@@ -8,7 +8,7 @@ self.addEventListener('install', function (event) {
 });
 
 self.addEventListener('fetch', function (event) {
-  var requestURL = new URL(event.request.url);
+  const requestURL = new URL(event.request.url);
   if (!(requestURL.protocol in ['http:', 'https:'])) {
     return fetch(event.request);
   }
@@ -30,7 +30,7 @@ self.addEventListener('fetch', function (event) {
                     .filter(function (photo) { return photo; })
                 );
               }
-              var options = {
+              const options = {
                 status: 200,
                 headers: new Headers({ 'content-type': 'application/json' })
               };
