@@ -1,13 +1,7 @@
-'use strict';
-
-require('loaders.css/loaders.css');
-require('../css/style.scss');
-
-const URLSearchParams = require('url-search-params');
-const assign = require('object-assign');
-require('isomorphic-fetch');
-const Mousetrap = require('mousetrap');
-const footerTemplate = require('templates/footer_template.mustache');
+import footerTemplate from '../templates/footer_template.mustache';
+import URLSearchParams from 'url-search-params';
+import assign from 'object-assign';
+import Mousetrap from 'mousetrap';
 
 const config = {};
 config.flickr_key = '850775ffc1d6d95478d78bee0fdf4971';
@@ -103,7 +97,7 @@ class Infinicatr {
       toggleClass(flipper, 'flipped');
       this.timeout = setTimeout(this.changePhoto.bind(this), config.flip_time);
       const license = this.licenses[photo.license];
-      document.getElementsByTagName('footer')[0].innerHTML = footerTemplate({
+      document.getElementsByTagName('footer')[0].innerHTML = footerTemplate.render({
         photo_link: 'https://www.flickr.com/photos/' + photo.owner + '/' + photo.id,
         title: photo.title,
         author: photo.ownername,
@@ -111,7 +105,8 @@ class Infinicatr {
         license_url: license.url,
         license_name: license.name
       });
-    }).catch(() => {
+    }).catch((e) => {
+      console.error('Error changing photo, trying next one', e);
       this.changePhoto();
     });
   }
@@ -120,7 +115,7 @@ class Infinicatr {
     const onFinish = () => { this.pendingMorePhotos = null; };
 
     if (this.pendingMorePhotos) { return this.pendingMorePhotos; }
-    /* Fetching photos! PLEASE WAIT! */
+    // Fetching photos! PLEASE WAIT!
     this.pendingMorePhotos = this._doFlickrRequest({
       content_type: '1', // 1 = photos only
       extras: ['owner_name', 'license', 'url_z', 'media'].join(','),

@@ -1,3 +1,4 @@
+@import('loaders.css/loaders.css');
 html {
   box-sizing: border-box;
 }
