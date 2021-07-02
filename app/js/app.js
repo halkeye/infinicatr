@@ -1,5 +1,5 @@
 import footerTemplate from '../templates/footer_template.mustache';
-import URLSearchParams from 'url-search-params';
+import 'whatwg-fetch';
 import Mousetrap from 'mousetrap';
 
 const config = {};
@@ -30,16 +30,6 @@ function toggleClass (el, className) {
 const pendingElm = document.getElementById('loading_flickr_indicator');
 hide(pendingElm);
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').then(registration => {
-      console.log('SW registered: ', registration);
-    }).catch(registrationError => {
-      console.log('SW registration failed: ', registrationError);
-    });
-  });
-}
-
 class Infinicatr {
   constructor () {
     this.page = 1;
@@ -61,7 +51,7 @@ class Infinicatr {
     Object.keys(params).forEach(key => searchParams.append(key, params[key]));
     url.search = searchParams.toString();
 
-    return fetch(url)
+    return window.fetch(url)
       .then(response => response.json())
       .then(response => { hide(pendingElm); return response; });
   }
