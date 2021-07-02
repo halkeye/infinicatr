@@ -14,7 +14,7 @@ export default [
   {
     input: 'app/js/service-worker',
     output: {
-      dir: 'dist/sw.js',
+      file: 'dist/sw.js',
       sourcemap: true
     },
     plugins: [
