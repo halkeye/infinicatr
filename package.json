@@ -25,7 +25,6 @@
   "dependencies": {
     "@babel/runtime": "^7.14.6",
     "es6-promise": "^4.2.8",
-    "object-assign": "^4.1.1",
     "url-search-params": "^1.1.0"
   },
   "devDependencies": {

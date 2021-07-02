@@ -1,6 +1,5 @@
 import footerTemplate from '../templates/footer_template.mustache';
 import URLSearchParams from 'url-search-params';
-import assign from 'object-assign';
 import Mousetrap from 'mousetrap';
 
 const config = {};
@@ -52,7 +51,7 @@ class Infinicatr {
   _doFlickrRequest (data) {
     show(pendingElm);
     const url = new URL('https://api.flickr.com/services/rest/');
-    const params = assign({}, data, {
+    const params = Object.assign({}, data, {
       api_key: config.flickr_key,
       format: 'json',
       nojsoncallback: 1
