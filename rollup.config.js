@@ -9,7 +9,7 @@ import html from '@web/rollup-plugin-html';
 
 // `npm run build` -> `production` is true
 // `npm run dev` -> `production` is false
-const production = false; // !process.env.ROLLUP_WATCH;
+const production = !process.env.ROLLUP_WATCH;
 
 export default [
   {
@@ -52,15 +52,11 @@ export default [
     input: 'app/js/app.js',
     output: { file: 'dist/bundle.esm.js', format: 'esm' },
     plugins: [
-      commonjs(), // converts date-fns to ES modules
-      mustache({
-        include: 'app/templates/*.mustache'
-      }),
+      mustache({ include: 'app/templates/*.mustache' }),
+      postcss({ plugins: [] }),
       nodeResolve(), // tells Rollup how to find date-fns in node_modules
-      postcss({
-        plugins: []
-      }),
-      production && terser() // minify, but only in production
+      commonjs(),
+      production && terser()
     ]
   },
   {
