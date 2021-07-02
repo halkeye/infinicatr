@@ -3,6 +3,8 @@
   "name": "InfiniCatr",
   "short_name": "InfiniCatr",
   "version": "2.0.0.1",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "description": "Endless Supply of cat pictures (as provided by flickr)",
   "permissions": [
     "https://*.staticflickr.com/*",

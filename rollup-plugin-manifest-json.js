@@ -14,7 +14,7 @@ export default function manifestJson (opts) {
 
       manifestData = JSON.parse(readFileSync(resolve(input), 'utf-8'));
 
-      Object.assign(manifestData, manifest);
+      Object.assign(manifestData, JSON.parse(JSON.stringify(manifest || {})));
 
       if (manifestData.icons) {
         for (const icon of manifestData.icons) {
