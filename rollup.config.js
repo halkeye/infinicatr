@@ -43,8 +43,6 @@ export default [
         }
       }),
       html({
-        injectServiceWorker: true,
-        serviceWorkerPath: './dist/sw.js',
         transformHtml: [html => {
           html = html.replace('assets/manifest.json', 'manifest.json');
           return html;
