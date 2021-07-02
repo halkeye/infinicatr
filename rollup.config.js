@@ -74,7 +74,7 @@ export default [
     output: { dir: 'dist' },
     plugins: [
       html({
-        serviceWorkerPath: '/sw.js',
+        serviceWorkerPath: 'dist/sw.js',
         injectServiceWorker: production,
         transformHtml: [html => {
           html = html.replace('assets/manifest.json', 'manifest.json');
