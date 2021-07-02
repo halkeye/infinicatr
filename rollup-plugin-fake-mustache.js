@@ -11,7 +11,7 @@ export default function (options = {}) {
 
       const code = `export default {
         render: function (data) {
-          return "${template.replace(/\n|\r/g, '').replace(/"/g, '\\"')}".replace(/{{\\s*([^}]+)\\s*}}/g, function(_, variableName) {
+          return \`${template.replace(/`/g, '\\`')}\`.replace(/{{\\s*([^}]+)\\s*}}/g, function(_, variableName) {
             return data[variableName.trim()];
           });
         }
