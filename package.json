@@ -48,7 +48,7 @@
     "eslint-plugin-standard": "^5.0.0",
     "extend": "^3.0.2",
     "loaders.css": "^0.1.2",
-    "mini-css-extract-plugin": "^2.4.5",
+    "mini-css-extract-plugin": "^2.4.6",
     "mousetrap": "^1.6.5",
     "node-libs-browser": "^2.2.1",
     "node-sass": "^6.0.1",
