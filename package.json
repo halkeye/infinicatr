@@ -31,7 +31,7 @@
     "@babel/plugin-transform-object-assign": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
     "@rollup/plugin-babel": "^5.3.1",
-    "@rollup/plugin-commonjs": "^21.0.3",
+    "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-node-resolve": "^13.2.0",
     "@web/rollup-plugin-html": "^1.10.2",
     "babel-eslint": "^10.1.0",
