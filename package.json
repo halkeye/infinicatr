@@ -23,7 +23,7 @@
   },
   "author": "Gavin Mogan <gavin@kodekoan.com>",
   "dependencies": {
-    "@babel/runtime": "^7.20.7",
+    "@babel/runtime": "^7.20.13",
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
