@@ -14,7 +14,7 @@
     "deploy:surge": "rm -rf dist && npm run build && surge -p dist -d infinicatr.surge.sh"
   },
   "engines": {
-    "node": ">=14 <15",
+    "node": ">=18",
     "npm": ">=7"
   },
   "repository": {
