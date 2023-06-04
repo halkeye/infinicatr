@@ -1,11 +1,11 @@
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import { babel } from '@rollup/plugin-babel';
-import mustache from './rollup-plugin-fake-mustache';
+import {nodeResolve} from '@rollup/plugin-node-resolve';
+import {babel} from '@rollup/plugin-babel';
+import mustache from './rollup-plugin-fake-mustache.mjs';
 import commonjs from '@rollup/plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
+import {terser} from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
-import manifestJson from './rollup-plugin-manifest-json'; // 'rollup-plugin-manifest-json';
-import html from '@web/rollup-plugin-html';
+import manifestJson from './rollup-plugin-manifest-json.mjs'; // 'rollup-plugin-manifest-json';
+import {rollupPluginHTML as html} from '@web/rollup-plugin-html';
 
 // `npm run build` -> `production` is true
 // `npm run dev` -> `production` is false
@@ -21,8 +21,8 @@ export default [
       ]
     },
     plugins: [
-      mustache({ include: 'app/templates/*.mustache' }),
-      postcss({ plugins: [] }),
+      mustache({include: 'app/templates/*.mustache'}),
+      postcss({plugins: []}),
       nodeResolve(), // tells Rollup how to find date-fns in node_modules
       commonjs(),
       babel({
@@ -50,10 +50,10 @@ export default [
   },
   {
     input: 'app/js/app.js',
-    output: { file: 'dist/bundle.esm.js', format: 'esm' },
+    output: {file: 'dist/bundle.esm.js', format: 'esm'},
     plugins: [
-      mustache({ include: 'app/templates/*.mustache' }),
-      postcss({ plugins: [] }),
+      mustache({include: 'app/templates/*.mustache'}),
+      postcss({plugins: []}),
       nodeResolve(), // tells Rollup how to find date-fns in node_modules
       commonjs(),
       production && terser()
@@ -71,7 +71,7 @@ export default [
   },
   {
     input: 'app/index.html',
-    output: { dir: 'dist' },
+    output: {dir: 'dist'},
     plugins: [
       html({
         serviceWorkerPath: 'dist/sw.js',
@@ -85,13 +85,13 @@ export default [
   },
   {
     input: 'app/manifest.json',
-    output: { dir: 'dist' },
+    output: {dir: 'dist'},
     plugins: [
       manifestJson({
         input: 'app/manifest.json', // Required
         minify: true,
         manifest: {
-          icons: [32, 60, 90, 120, 128, 144, 152, 256, 512].map(size => ({ src: `./app/icons/icon-${size}.png`, sizes: `${size}x${size}`, type: 'image/png' }))
+          icons: [32, 60, 90, 120, 128, 144, 152, 256, 512].map(size => ({src: `./app/icons/icon-${size}.png`, sizes: `${size}x${size}`, type: 'image/png'}))
         }
       })
     ]
