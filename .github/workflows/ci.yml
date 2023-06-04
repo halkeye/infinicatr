@@ -1,10 +1,14 @@
 name: Build and deploy
 
 on:
+  # Runs on pushes targeting the default branch
   push:
-    branches: [ "master" ]
+    branches: [$default-branch]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
   pull_request:
-    branches: [ "master" ]
+    branches: [ $default-branch ]
 
 jobs:
   build:
@@ -24,6 +28,11 @@ jobs:
 
     - name: Build
       run: npm run build
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        path: ./dist
 
 # Deploy job
   deploy:
