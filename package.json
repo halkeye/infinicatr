@@ -8,7 +8,7 @@
     "watch": "NODE_ENV=development rollup -c -w",
     "dev": "npm-run-all --parallel start watch",
     "start": "serve dist -l 3000 -s -n",
-    "lint": "eslint --ignore-path .gitignore --ext .js,.jsx .",
+    "lint": "eslint .",
     "test": "npm run lint; npm run build",
     "build_chrome_package": "rm -rf dist && npm run build && cd dist && zip -r ../infinicatr.zip *",
     "deploy:surge": "rm -rf dist && npm run build && surge -p dist -d infinicatr.surge.sh"
@@ -33,8 +33,8 @@
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-terser": "^0.4.3",
     "@web/rollup-plugin-html": "^2.0.0",
-    "babel-eslint": "^10.1.0",
     "bootstrap-sass": "^3.4.3",
     "core-js": "^3.30.2",
     "cross-env": "^7.0.3",
@@ -56,7 +56,6 @@
     "postcss": "^8.4.24",
     "rollup": "^3.23.0",
     "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-terser": "^7.0.2",
     "serve": "^14.2.0",
     "surge": "^0.23.1"
   }
