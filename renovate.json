@@ -1,0 +1,23 @@
+{
+    "extends": [
+        "config:base",
+        "schedule:weekly"
+    ],
+    "labels": [
+        "dependencies"
+    ],
+    "npm": {
+        "stabilityDays": 1
+    },
+    "packageRules": [
+        {
+            "matchUpdateTypes": [
+                "minor",
+                "patch",
+                "pin",
+                "digest"
+            ],
+            "automerge": true
+        }
+    ]
+}
