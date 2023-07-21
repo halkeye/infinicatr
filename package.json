@@ -24,7 +24,7 @@
   "author": "Gavin Mogan <gavin@kodekoan.com>",
   "dependencies": {
     "@babel/runtime": "^7.22.3",
-    "whatwg-fetch": "^3.6.2"
+    "whatwg-fetch": "^3.6.17"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",
