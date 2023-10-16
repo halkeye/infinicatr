@@ -36,7 +36,7 @@
     "@rollup/plugin-terser": "^0.4.3",
     "@web/rollup-plugin-html": "^2.0.0",
     "bootstrap-sass": "^3.4.3",
-    "core-js": "^3.30.2",
+    "core-js": "^3.33.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.42.0",
     "eslint-config-defaults": "^9.0.0",
