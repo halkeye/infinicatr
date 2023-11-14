@@ -34,7 +34,7 @@
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.2.1",
     "@rollup/plugin-terser": "^0.4.3",
-    "@web/rollup-plugin-html": "^2.0.0",
+    "@web/rollup-plugin-html": "^2.1.2",
     "bootstrap-sass": "^3.4.3",
     "core-js": "^3.30.2",
     "cross-env": "^7.0.3",
