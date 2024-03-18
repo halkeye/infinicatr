@@ -54,7 +54,7 @@
     "node-sass": "^9.0.0",
     "npm-run-all2": "^6.1.2",
     "postcss": "^8.4.34",
-    "rollup": "^4.0.0",
+    "rollup": "^4.13.0",
     "rollup-plugin-postcss": "^4.0.2",
     "serve": "^14.2.0",
     "surge": "^0.23.1"
