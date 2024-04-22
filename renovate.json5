@@ -1,0 +1,30 @@
+{
+    "extends": [
+        "config:base",
+        "schedule:weekly",
+        ":semanticCommits",
+        ":automergeDigest",
+        ":automergeBranch",
+        ":timezone(America/Vancouver)",
+        "helpers:pinGitHubActionDigests"
+    ],
+    "labels": [
+        "dependencies"
+    ],
+    "npm": {
+        "stabilityDays": 1
+    },
+    "packageRules": [
+        {
+            "matchPackagePatterns": [
+                "*"
+            ],
+            "matchUpdateTypes": [
+                "minor",
+                "patch"
+            ],
+            "groupName": "all non-major dependencies",
+            "groupSlug": "all-minor-patch"
+        },
+    ]
+}
