@@ -57,6 +57,6 @@
     "rollup": "^4.0.0",
     "rollup-plugin-postcss": "^4.0.2",
     "serve": "^14.2.0",
-    "surge": "^0.23.1"
+    "surge": "^0.24.0"
   }
 }
