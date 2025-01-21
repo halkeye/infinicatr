@@ -52,7 +52,7 @@
     "mousetrap": "^1.6.5",
     "node-libs-browser": "^2.2.1",
     "node-sass": "^9.0.0",
-    "npm-run-all2": "^6.1.2",
+    "npm-run-all2": "^7.0.0",
     "postcss": "^8.4.34",
     "rollup": "^4.0.0",
     "rollup-plugin-postcss": "^4.0.2",
