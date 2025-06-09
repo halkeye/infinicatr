@@ -1,4 +1,3 @@
-import footerTemplate from "../templates/footer_template.mustache";
 import "whatwg-fetch";
 import Mousetrap from "mousetrap";
 
@@ -106,16 +105,16 @@ class Infinicatr {
           config.flip_time,
         );
         const license = this.licenses[photo.license];
-        document.getElementsByTagName("footer")[0].innerHTML =
-          footerTemplate.render({
-            photo_link:
-              "https://www.flickr.com/photos/" + photo.owner + "/" + photo.id,
-            title: photo.title,
-            author: photo.ownername,
-            author_link: "https://www.flickr.com/people/" + photo.owner,
-            license_url: license.url,
-            license_name: license.name,
-          });
+        document.querySelector("footer .photo_title").textContent = photo.title;
+        document.querySelector("footer .photo_title").href =
+          `https://www.flickr.com/photos/${photo.owner}/${photo.id}`;
+        document.querySelector("footer .photo_author").textContent =
+          photo.ownername;
+        document.querySelector("footer .photo_author").href =
+          `https://www.flickr.com/people/${photo.owner}`;
+        document.querySelector("footer .photo_license").textContent =
+          license.name;
+        document.querySelector("footer .photo_license").href = license.url;
         return;
       })
       .catch((e) => {

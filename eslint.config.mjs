@@ -35,7 +35,6 @@ export default defineConfig([
   {
     files: [
       "rollup.config.mjs",
-      "rollup-plugin-fake-mustache.mjs",
       "rollup-plugin-manifest-json.mjs",
       "eslint.config.mjs",
     ],
