@@ -41,13 +41,11 @@
     "eslint-plugin-promise": "^7.2.1",
     "globals": "^16.2.0",
     "loaders.css": "^0.1.2",
-    "mini-css-extract-plugin": "^2.9.2",
     "mousetrap": "^1.6.5",
     "npm-run-all2": "^8.0.4",
     "postcss": "^8.5.4",
     "rollup": "^4.42.0",
     "rollup-plugin-postcss": "^4.0.2",
-    "serve": "^14.2.4",
-    "surge": "^0.24.6"
+    "serve": "^14.2.4"
   }
 }
