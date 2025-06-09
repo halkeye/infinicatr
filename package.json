@@ -14,7 +14,7 @@
     "deploy:surge": "rm -rf dist && npm run build && surge -p dist -d infinicatr.surge.sh"
   },
   "engines": {
-    "node": ">=18",
+    "node": ">=20",
     "npm": ">=7"
   },
   "repository": {
@@ -36,11 +36,9 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@web/rollup-plugin-html": "^2.3.0",
     "core-js": "^3.43.0",
-    "cross-env": "^7.0.3",
     "eslint": "^9.28.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-promise": "^7.2.1",
-    "extend": "^3.0.2",
     "globals": "^16.2.0",
     "loaders.css": "^0.1.2",
     "mini-css-extract-plugin": "^2.9.2",
