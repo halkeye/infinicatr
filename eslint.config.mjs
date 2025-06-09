@@ -1,18 +1,21 @@
+// eslint-disable-next-line import/no-unresolved
 import { defineConfig, globalIgnores } from "eslint/config";
+import pluginPromise from "eslint-plugin-promise";
 import globals from "globals";
+import importPlugin from "eslint-plugin-import";
 import js from "@eslint/js";
 
 export default defineConfig([
+  js.configs.recommended,
+  importPlugin.flatConfigs.recommended,
+  pluginPromise.configs["flat/recommended"],
   {
-    files: ["**/*.js"],
-    plugins: {
-      js,
-    },
-    extends: ["js/recommended"],
+    files: ["**/*.{js,mjs,cjs}"],
+    // plugins: { js },
+    // extends: ["js/recommended"],
     rules: {
       semi: [2, "always"],
       "no-extra-semi": 2,
-
       "no-unused-vars": [
         2,
         {
@@ -22,9 +25,29 @@ export default defineConfig([
       ],
     },
     languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
       globals: {
         ...globals.browser,
       },
+    },
+  },
+  {
+    files: [
+      "rollup.config.mjs",
+      "rollup-plugin-fake-mustache.mjs",
+      "rollup-plugin-manifest-json.mjs",
+      "eslint.config.mjs",
+    ],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      "import/no-nodejs-modules": "off",
     },
   },
   globalIgnores([
