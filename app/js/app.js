@@ -193,3 +193,8 @@ app
 
 Mousetrap.bind("right", app.changePhoto.bind(app));
 Mousetrap.bind("space", app.changePhoto.bind(app));
+
+navigator.serviceWorker.register(
+  new URL("service-worker.js", import.meta.url),
+  { type: "module" },
+);

@@ -1,12 +1,18 @@
-@import('loaders.css/loaders.css');
+@import 'npm:loaders.css/loaders.css';
+
 html {
   box-sizing: border-box;
 }
-*, *:before, *:after {
+
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
+
 /* some basic styles. nothing to do with flexbox */
-header, footer,
+header,
+footer,
 section {
   border: 1px solid black;
   padding: 0.25em;
@@ -27,29 +33,36 @@ section {
  *  are valid cases for each. I just want to be clear what's controlling the
  *  page/viewport height.
  */
-html, body, .viewport {
+html,
+body,
+.viewport {
   width: 100%;
   height: 100%;
   margin: 0;
 }
 
-/* encapsulate the various syntax in helper clases */
+/* encapsulate the various syntax in helper classes */
 /* inspired by http://infrequently.org/2009/08/css-3-progress/ */
 
 /* items flex/expand vertically */
 .vbox {
   /* previous syntax */
-  display:         box;
+  display: box;
   box-orient: vertical;
 
   /* current syntax */
-  display:         flex;
+  display: flex;
 
   flex-direction: column;
 }
 
-header { height: 64px; }
-footer { height: 40px; }
+header {
+  height: 64px;
+}
+
+footer {
+  height: 40px;
+}
 
 #main {
   /* previous syntax */
@@ -58,9 +71,9 @@ footer { height: 40px; }
   /* current syntax */
   flex: 1;
 
-  margin:0px auto;
-  width:100%;
-  height:100%;
+  margin: 0px auto;
+  width: 100%;
+  height: 100%;
 
   align-items: center;
   display: flex;
@@ -80,14 +93,17 @@ header img {
   top: 50%;
   transform: translateY(-50%);
 }
+
 header h1 {
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   font-size: 2em;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
 }
-header .line-scale > div {
+
+header .line-scale>div {
   background: orange;
   height: 50px;
 }
@@ -97,7 +113,8 @@ section {
   perspective: 1000px;
 }
 
-#front, #back {
+#front,
+#back {
   width: 100%;
   height: 100%;
 }
@@ -114,7 +131,8 @@ section {
 }
 
 /* hide back of pane during swap */
-#front, #back {
+#front,
+#back {
   backface-visibility: hidden;
 
   position: absolute;
@@ -148,4 +166,3 @@ section {
 #loading_flickr_container {
   float: right;
 }
-

@@ -55,3 +55,4 @@ node_modules
 app/bower_components
 .direnv
 .envrc
+.parcel-cache/

@@ -3,19 +3,15 @@
   "version": "2.0.0",
   "description": "Endless Supply of cat pictures (as provided by flickr)",
   "license": "MIT",
+  "private": true,
+  "source": "app/index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "build": "NODE_ENV=production rollup -c",
-    "watch": "NODE_ENV=development rollup -c -w",
-    "dev": "npm-run-all --parallel start watch",
-    "start": "serve dist -l 3000 -s -n",
+    "start": "parcel",
+    "build": "parcel build",
+    "dev": "parcel",
     "lint": "eslint .",
-    "test": "npm run lint; npm run build",
-    "build_chrome_package": "rm -rf dist && npm run build && cd dist && zip -r ../infinicatr.zip *",
-    "deploy:surge": "rm -rf dist && npm run build && surge -p dist -d infinicatr.surge.sh"
-  },
-  "engines": {
-    "node": ">=20",
-    "npm": ">=7"
+    "test": "npm run lint; npm run build"
   },
   "repository": {
     "type": "git",
@@ -23,29 +19,20 @@
   },
   "author": "Gavin Mogan <gavin@kodekoan.com>",
   "dependencies": {
-    "@babel/runtime": "^7.27.6",
-    "whatwg-fetch": "^3.6.20"
+    "whatwg-fetch": "^3.6.20",
+    "loaders.css": "^0.1.2",
+    "mousetrap": "^1.6.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.27.4",
-    "@babel/plugin-transform-object-assign": "^7.27.1",
-    "@babel/preset-env": "^7.27.2",
-    "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^28.0.3",
-    "@rollup/plugin-node-resolve": "^16.0.1",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@web/rollup-plugin-html": "^2.3.0",
-    "core-js": "^3.43.0",
+    "@parcel/packager-raw-url": "^2.15.2",
+    "@parcel/service-worker": "^2.15.2",
+    "@parcel/transformer-webmanifest": "^2.15.2",
     "eslint": "^9.28.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-promise": "^7.2.1",
     "globals": "^16.2.0",
-    "loaders.css": "^0.1.2",
-    "mousetrap": "^1.6.5",
     "npm-run-all2": "^8.0.4",
-    "postcss": "^8.5.4",
-    "rollup": "^4.42.0",
-    "rollup-plugin-postcss": "^4.0.2",
-    "serve": "^14.2.4"
+    "parcel": "^2.15.2",
+    "postcss": "^8.5.4"
   }
 }

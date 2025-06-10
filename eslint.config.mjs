@@ -91,5 +91,6 @@ export default defineConfig([
     "app/bower_components",
     "**/.direnv",
     "**/.envrc",
+    "parcel-cache",
   ]),
 ]);
