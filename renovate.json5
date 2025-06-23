@@ -1,30 +1,30 @@
 {
-    "extends": [
-        "config:base",
-        "schedule:weekly",
-        ":semanticCommits",
-        ":automergeDigest",
-        ":automergeBranch",
-        ":timezone(America/Vancouver)",
-        "helpers:pinGitHubActionDigests"
+    extends: [
+        'config:recommended',
+        'schedule:weekly',
+        ':semanticCommits',
+        ':automergeDigest',
+        ':automergeBranch',
+        ':timezone(America/Vancouver)',
+        'helpers:pinGitHubActionDigests',
     ],
-    "labels": [
-        "dependencies"
+    labels: [
+        'dependencies',
     ],
-    "npm": {
-        "stabilityDays": 1
+    npm: {
+        minimumReleaseAge: '1 day',
     },
-    "packageRules": [
+    packageRules: [
         {
-            "matchPackagePatterns": [
-                "*"
+            matchUpdateTypes: [
+                'minor',
+                'patch',
             ],
-            "matchUpdateTypes": [
-                "minor",
-                "patch"
+            groupName: 'all non-major dependencies',
+            groupSlug: 'all-minor-patch',
+            matchPackageNames: [
+                '*',
             ],
-            "groupName": "all non-major dependencies",
-            "groupSlug": "all-minor-patch"
         },
-    ]
+    ],
 }
